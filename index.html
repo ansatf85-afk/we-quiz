@@ -1,0 +1,173 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WE Quiz Challenge</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#10152e;color:white}
+header{text-align:center;padding:30px 15px;background:linear-gradient(120deg,#654cff,#16b8d4)}
+header h1{margin:0 0 10px}
+main{max-width:750px;margin:25px auto;padding:15px}
+.card{background:#1b2444;padding:22px;border-radius:18px;margin-bottom:18px}
+button{border:0;border-radius:10px;padding:12px 18px;margin:5px;background:#8170ff;color:white;font-weight:bold;cursor:pointer}
+button:hover{opacity:.85}
+input,textarea{width:100%;padding:12px;border-radius:9px;border:1px solid #58658e;background:#111a35;color:white;margin:8px 0}
+.option{display:block;width:100%;text-align:left;background:#29365d}
+.small{color:#c5cce5}
+#qr{max-width:210px;width:100%;background:white;padding:8px;border-radius:10px}
+.hidden{display:none}
+.bar{height:8px;background:#394466;border-radius:8px;overflow:hidden}
+#progress{height:8px;background:#30d5c8;width:0}
+</style>
+</head>
+<body>
+<header>
+<h1>WE Quiz Challenge</h1>
+<p>Programming and Web Development G2</p>
+<p>Semester One • 2026–2027</p>
+</header>
+<main>
+<section class="card" id="welcome">
+<h2>Welcome to WE Quiz Challenge!</h2>
+<p>Practice, learn, and test your web development skills.</p>
+<label for="student">Enter your name:</label>
+<input id="student" placeholder="Your name">
+<p class="small">20 questions • Multiple choice • True or False • Short answers</p>
+<button onclick="startQuiz()">Start Quiz</button>
+<button onclick="practice()">Practice Mode</button>
+</section>
+
+<section class="card hidden" id="quiz">
+<div style="display:flex;justify-content:space-between;gap:10px">
+<span id="counter">Question 1 of 20</span>
+<span id="timer">10:00</span>
+</div>
+<div class="bar"><div id="progress"></div></div>
+<h3 id="question"></h3>
+<div id="answers"></div>
+<div id="shortBox" class="hidden">
+<textarea id="written" placeholder="Write your answer here..."></textarea>
+</div>
+<p id="feedback" class="small"></p>
+<button onclick="previous()">Previous</button>
+<button onclick="next()">Next</button>
+<button onclick="submitQuiz()">Submit Quiz</button>
+</section>
+
+<section class="card hidden" id="results">
+<h2>Quiz Results</h2>
+<h1 id="score"></h1>
+<p id="details"></p>
+<button onclick="review()">Review Answers</button>
+<button onclick="startQuiz()">Retry Quiz</button>
+</section>
+
+<section class="card" id="reviewBox">
+<h2>Review Answers</h2>
+<div id="reviewList"></div>
+</section>
+
+<section class="card">
+<h2>Share Quiz</h2>
+<p>Scan the QR code to open this quiz website.</p>
+<div id="qrArea"><p class="small">Publish the website on GitHub Pages first. Then open its public link to generate the QR code.</p></div>
+<button onclick="makeQR()">Generate QR Code</button>
+<button onclick="copyLink()">Copy Website Link</button>
+</section>
+
+<section class="card">
+<h2>About the Project</h2>
+<p>Student: Anas</p>
+<p>School: WE School</p>
+<p>School Principal: Ms. Samira</p>
+<p>Executive Director: Mr. Ahmed El-Sayed</p>
+<p>Department Supervisor: Eng. Mariam</p>
+<p>Additional Contributor: Rofeida</p>
+</section>
+</main>
+
+<script>
+const questions=[
+{q:"Which software is used to access websites and view their content?",o:["Server","Code editor","Browser","Domain name"],a:2},
+{q:"HTML is a programming language used to write logic for web pages.",t:1,a:false},
+{q:"Which tag is the root element of an HTML document?",o:["<html>","<head>","<body>","<title>"],a:0},
+{q:"Define HTML and state what it stands for.",s:1,a:"HTML stands for Hypertext Markup Language. It describes the structure of a web page."},
+{q:"The <head> section contains the content displayed on the webpage.",t:1,a:false},
+{q:"Which attribute of the <a> tag specifies the URL of the target resource?",o:["src","href","alt","title"],a:1},
+{q:"Compare the src and alt attributes of the <img> tag.",s:1,a:"src defines the image path; alt provides alternative text describing the image."},
+{q:"The required attribute prevents form submission until the field has a value.",t:1,a:true},
+{q:"Which element allows users to enter multi-line text?",o:['<input type="text">',"<p>","<div>","<textarea>"],a:3},
+{q:"Compare radio buttons and checkboxes.",s:1,a:"Radio buttons allow one selection; checkboxes allow one or more selections."},
+{q:"Which attribute is used to merge two table columns into one?",o:["rowspan","merge","colspan","span"],a:2},
+{q:"The <video> element can be written without an end tag, like the <img> tag.",t:1,a:false},
+{q:"Explain the structure of a CSS rule.",s:1,a:"A CSS rule has a selector and declarations containing property-value pairs."},
+{q:"Which CSS property is used to change the text color?",o:["color","font-color","text-color","text-style"],a:0},
+{q:"What is the default value of the box-sizing property?",o:["border-box","padding-box","content-box","margin-box"],a:2},
+{q:"CSS is used to describe the structure of a webpage.",t:1,a:false},
+{q:"What is the benefit of semantic HTML for accessibility?",o:["Makes pages load faster","Reduces CSS needs","Helps screen readers interpret content","Improves image quality"],a:2},
+{q:"Define a wireframe and explain why it is created before coding.",s:1,a:"A wireframe is a blueprint of a webpage layout and structure, used to plan the design before coding."},
+{q:"An element with position: absolute; is removed from the normal flow of the document.",t:1,a:true},
+{q:"What does a media query typically check?",o:["Device characteristics like screen width","The user's location","The browser version","The operating system"],a:0}
+];
+let order=[],answers={},idx=0,seconds=600,clock=null,practiceMode=false;
+function startQuiz(){
+clearInterval(clock);order=questions.map((_,i)=>i).sort(()=>Math.random()-.5);
+answers={};idx=0;seconds=600;practiceMode=false;
+document.getElementById("welcome").classList.add("hidden");
+document.getElementById("results").classList.add("hidden");
+document.getElementById("quiz").classList.remove("hidden");
+clock=setInterval(()=>{seconds--;document.getElementById("timer").textContent=Math.floor(seconds/60)+":"+String(seconds%60).padStart(2,"0");if(seconds<=0)submitQuiz()},1000);
+render();
+}
+function practice(){startQuiz();practiceMode=true;clearInterval(clock);document.getElementById("timer").textContent="Practice Mode"}
+function render(){
+let q=questions[order[idx]];
+document.getElementById("counter").textContent="Question "+(idx+1)+" of "+order.length;
+document.getElementById("progress").style.width=((idx+1)/order.length*100)+"%";
+document.getElementById("question").textContent=q.q;
+document.getElementById("answers").innerHTML="";
+document.getElementById("shortBox").classList.toggle("hidden",!q.s);
+document.getElementById("written").value=answers[order[idx]]?.text||"";
+document.getElementById("feedback").textContent="";
+if(q.o){
+q.o.forEach((v,j)=>{let b=document.createElement("button");b.className="option";b.textContent=String.fromCharCode(65+j)+". "+v;b.style.outline=answers[order[idx]]?.value===j?"2px solid #30d5c8":"";b.onclick=()=>{answers[order[idx]]={value:j};render();if(practiceMode)showFeedback()};document.getElementById("answers").appendChild(b)})
+}else if(q.t){
+["True","False"].forEach((v,j)=>{let b=document.createElement("button");b.className="option";b.textContent=v;b.style.outline=answers[order[idx]]?.value===(j===0)?"2px solid #30d5c8":"";b.onclick=()=>{answers[order[idx]]={value:j===0};render();if(practiceMode)showFeedback()};document.getElementById("answers").appendChild(b)})
+}
+}
+function saveWritten(){if(questions[order[idx]].s)answers[order[idx]]={text:document.getElementById("written").value}}
+document.getElementById("written").addEventListener("input",saveWritten);
+function showFeedback(){let q=questions[order[idx]],a=answers[order[idx]],correct=q.s?"Expected answer: "+q.a:(q.t?(a?.value===q.a?"Correct!":"Not quite."):(a?.value===q.a?"Correct!":"Not quite."));document.getElementById("feedback").textContent=correct}
+function next(){saveWritten();if(idx<order.length-1){idx++;render()}}
+function previous(){saveWritten();if(idx>0){idx--;render()}}
+function submitQuiz(){
+clearInterval(clock);saveWritten();let points=0,auto=0;
+questions.forEach((q,i)=>{if(q.s)return;auto++;if(answers[i]&&answers[i].value===q.a)points++});
+document.getElementById("quiz").classList.add("hidden");
+document.getElementById("results").classList.remove("hidden");
+document.getElementById("score").textContent=points+" / "+auto;
+document.getElementById("details").textContent=(Math.round(points/auto*100))+"% automatic score. Short answers should be checked against the expected answers.";
+localStorage.setItem("weQuizBest",Math.max(points,Number(localStorage.getItem("weQuizBest")||0)));
+}
+function review(){
+document.getElementById("results").classList.add("hidden");
+document.getElementById("reviewBox").classList.remove("hidden");
+document.getElementById("reviewList").innerHTML=questions.map((q,i)=>{
+let your=answers[i]?.text||((q.t)?(answers[i]?.value===undefined?"Not answered":answers[i].value?"True":"False"):(q.o? (answers[i]?.value===undefined?"Not answered":q.o[answers[i].value]):"Not answered"));
+let correct=q.s?q.a:(q.t?(q.a?"True":"False"):q.o[q.a]);
+return "<hr><b>"+(i+1)+". "+q.q+"</b><p>Your answer: "+your+"</p><p>Correct answer: "+correct+"</p>"
+}).join("");
+}
+function makeQR(){
+let u=location.href;
+if(location.protocol==="file:"){document.getElementById("qrArea").textContent="Publish this page on GitHub Pages, then open the public website link to generate its QR code.";return}
+document.getElementById("qrArea").innerHTML='<img id="qr" alt="Quiz website QR code" src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data='+encodeURIComponent(u)+'"><p class="small">Scan to Start the Quiz</p>';
+}
+function copyLink(){navigator.clipboard.writeText(location.href).then(()=>alert("Website link copied!")).catch(()=>prompt("Copy this link:",location.href))}
+if(location.protocol!=="file:")makeQR();
+</script>
+</body>
+</html>
