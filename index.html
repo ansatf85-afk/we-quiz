@@ -3,114 +3,137 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>تحدي WE للاختبارات · البرمجة وتطوير الويب G2</title>
+<title>Anas WE Quiz · Miss Mariam Theme</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI','Tahoma',system-ui,sans-serif}
 :root{
-  --pri:#5b21b6;--pri2:#7c3aed;--pri3:#a78bfa;
-  --sec:#2563eb;--accent:#3b82f6;
-  --bg:#0d0a1f;--surf:#1a1435;--surf2:#241c47;
-  --txt:#f1f0ff;--mut:#a8a0c8;--bord:#2d2555;
-  --ok:#10b981;--no:#ef4444;--sk:#f59e0b;
-  --sh:0 10px 30px rgba(91,33,182,.35);
+  --pri:#5B21B6;
+  --pri2:#7C3AED;
+  --pri3:#A78BFA;
+  --pri4:#C4B5FD;
+  --bg:#0a0618;
+  --surf:#1a1035;
+  --surf2:#251847;
+  --txt:#f1f0ff;
+  --mut:#b8a8d9;
+  --bord:#3b2a6b;
+  --ok:#10b981;
+  --no:#ef4444;
+  --sk:#f59e0b;
+  --sh:0 10px 30px rgba(91,33,182,.4);
 }
 body.light{
-  --bg:#f5f2ff;--surf:#ffffff;--surf2:#ede9fe;
-  --txt:#1e1b4b;--mut:#6b7280;--bord:#ddd6fe;
-  --sh:0 10px 30px rgba(91,33,182,.12);
+  --bg:#f8f6ff;
+  --surf:#ffffff;
+  --surf2:#f3efff;
+  --txt:#1e1b4b;
+  --mut:#6b5b95;
+  --bord:#d8ccf5;
+  --sh:0 10px 30px rgba(91,33,182,.15);
 }
 body{
   background:var(--bg);color:var(--txt);min-height:100vh;
   padding:20px 14px 60px;display:flex;justify-content:center;
   transition:.3s;position:relative;overflow-x:hidden;
 }
-
-/* === WE APPLIED TECHNOLOGY BACKGROUND === */
-body::before{
-  content:"";position:fixed;inset:0;z-index:-3;
-  background-image:
-    radial-gradient(circle at 15% 20%,rgba(124,58,237,.35),transparent 45%),
-    radial-gradient(circle at 85% 80%,rgba(37,99,235,.32),transparent 45%),
-    radial-gradient(circle at 50% 50%,rgba(139,92,246,.12),transparent 70%),
-    linear-gradient(rgba(124,58,237,.08) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(37,99,235,.08) 1px,transparent 1px);
-  background-size:100% 100%,100% 100%,100% 100%,50px 50px,50px 50px;
-  background-attachment:fixed;
+.bg-photo{
+  position:fixed;inset:0;z-index:-4;
+  background-image:url('we-bg.jpg');
+  background-size:cover;background-position:center top;
+  background-repeat:no-repeat;opacity:0;transition:opacity .8s;
 }
+.bg-photo.loaded{opacity:1}
+.bg-purple{
+  position:fixed;inset:0;z-index:-3;
+  background:
+    radial-gradient(circle at 20% 15%, rgba(124,58,237,.45), transparent 50%),
+    radial-gradient(circle at 80% 85%, rgba(91,33,182,.45), transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(167,139,250,.15), transparent 70%),
+    linear-gradient(135deg, #0a0618 0%, #1a1035 50%, #0a0618 100%);
+}
+.bg-grid{
+  position:fixed;inset:0;z-index:-2;
+  background-image:
+    linear-gradient(rgba(167,139,250,.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(124,58,237,.08) 1px, transparent 1px);
+  background-size:50px 50px;pointer-events:none;
+}
+.bg-overlay{
+  position:fixed;inset:0;z-index:-1;
+  background:linear-gradient(180deg,rgba(10,6,24,.88) 0%,rgba(26,16,53,.82) 40%,rgba(10,6,24,.92) 100%);
+  pointer-events:none;
+}
+body.light .bg-overlay{
+  background:linear-gradient(180deg,rgba(248,246,255,.92) 0%,rgba(243,239,255,.88) 40%,rgba(248,246,255,.95) 100%);
+}
+.app{width:100%;max-width:980px;position:relative;z-index:1}
 .bg-shield{
   position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
-  width:min(80vw,560px);height:min(80vw,560px);
-  z-index:-2;opacity:.07;pointer-events:none;
+  width:min(70vw,500px);height:min(70vw,500px);
+  z-index:-1;opacity:.06;pointer-events:none;
 }
-.bg-slogan{
-  position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
-  z-index:-1;pointer-events:none;width:100%;text-align:center;
-  font-family:'Segoe UI',Tahoma,sans-serif;
-}
-.bg-slogan .line1{font-size:clamp(2rem,7vw,5rem);font-weight:900;color:rgba(124,58,237,.08);letter-spacing:3px;line-height:1.2}
-.bg-slogan .line2{font-size:clamp(1.4rem,5vw,3.5rem);font-weight:800;color:rgba(37,99,235,.07);letter-spacing:2px;line-height:1.4;margin-top:.3em}
-.bg-slogan .line3{font-size:clamp(.9rem,3vw,2rem);font-weight:700;color:rgba(139,92,246,.06);letter-spacing:4px;margin-top:.5em}
-
-.app{width:100%;max-width:980px;position:relative;z-index:1}
-
-/* === TOP BAR === */
 .topbar{
   display:flex;justify-content:space-between;align-items:center;
   flex-wrap:wrap;gap:12px;margin-bottom:20px;
-  background:linear-gradient(135deg,rgba(91,33,182,.30),rgba(37,99,235,.22));
+  background:linear-gradient(135deg,rgba(91,33,182,.55),rgba(124,58,237,.4));
   border:1px solid var(--bord);border-radius:20px;padding:14px 18px;
-  backdrop-filter:blur(10px);box-shadow:0 8px 24px rgba(91,33,182,.25);
+  backdrop-filter:blur(12px);box-shadow:0 8px 24px rgba(91,33,182,.35);
 }
 .brand{display:flex;align-items:center;gap:14px}
-.we-shield{width:60px;height:60px;flex-shrink:0;position:relative}
-.we-shield svg{width:100%;height:100%;display:block}
+.we-shield{width:60px;height:60px;flex-shrink:0}
+.we-shield svg{width:100%;height:100%;display:block;filter:drop-shadow(0 4px 10px rgba(91,33,182,.6))}
 .brand-text h1{
-  font-size:1.15rem;font-weight:800;
-  background:linear-gradient(135deg,var(--pri3),var(--accent));
-  -webkit-background-clip:text;background-clip:text;color:transparent;line-height:1.3;
+  font-size:1.25rem;font-weight:900;
+  background:linear-gradient(135deg,#fff,var(--pri3));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  line-height:1.3;letter-spacing:.5px;
 }
-.brand-text p{font-size:.75rem;color:var(--mut);margin-top:2px}
+.brand-text p{font-size:.75rem;color:var(--pri4);margin-top:2px;font-weight:600}
 .controls{display:flex;gap:8px}
 .icon-btn{
   width:44px;height:44px;border-radius:50%;
-  border:1px solid var(--bord);background:var(--surf);
+  border:1px solid var(--bord);background:rgba(26,16,53,.7);
   color:var(--txt);font-size:1.1rem;cursor:pointer;
   display:grid;place-items:center;transition:.2s;
 }
+body.light .icon-btn{background:rgba(255,255,255,.85)}
 .icon-btn:hover{background:var(--pri);color:#fff;transform:translateY(-2px)}
-
 .slogan-banner{
-  text-align:center;padding:16px;
-  background:linear-gradient(135deg,rgba(91,33,182,.22),rgba(37,99,235,.18));
+  text-align:center;padding:14px;
+  background:linear-gradient(135deg,rgba(91,33,182,.55),rgba(124,58,237,.4));
   border:1px solid var(--bord);border-radius:20px;
-  margin-bottom:20px;font-size:1.05rem;font-weight:800;
-  color:var(--pri3);letter-spacing:1px;
-  box-shadow:0 6px 18px rgba(91,33,182,.15);
+  margin-bottom:20px;font-size:1.1rem;font-weight:900;
+  color:#fff;letter-spacing:1.5px;
+  box-shadow:0 6px 18px rgba(91,33,182,.3);
+  text-shadow:0 2px 8px rgba(0,0,0,.4);
 }
-
 .card{
   background:var(--surf);border:1px solid var(--bord);
   border-radius:24px;padding:28px;margin-bottom:20px;
   box-shadow:var(--sh);animation:fadeUp .45s ease both;
+  backdrop-filter:blur(14px);
 }
+body.light .card{background:rgba(255,255,255,.95)}
 @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-
 .btn{
   display:inline-flex;align-items:center;justify-content:center;gap:8px;
-  padding:14px 26px;font-size:1rem;font-weight:600;border:none;
+  padding:14px 26px;font-size:1rem;font-weight:700;border:none;
   border-radius:60px;cursor:pointer;color:#fff;
-  background:linear-gradient(135deg,var(--pri),var(--sec));
-  box-shadow:0 8px 22px rgba(124,58,237,.4);transition:.22s;
+  background:linear-gradient(135deg,var(--pri),var(--pri2));
+  box-shadow:0 8px 22px rgba(124,58,237,.5);transition:.22s;
   font-family:inherit;
 }
-.btn:hover{transform:translateY(-3px);box-shadow:0 14px 28px rgba(124,58,237,.55)}
-.btn.ghost{background:transparent;color:var(--pri2);border:1.6px solid var(--pri);box-shadow:none}
-.btn.ghost:hover{background:var(--pri);color:#fff}
+.btn:hover{transform:translateY(-3px);box-shadow:0 14px 28px rgba(124,58,237,.7)}
+.btn.ghost{background:transparent;color:var(--pri3);border:1.6px solid var(--pri2);box-shadow:none}
+.btn.ghost:hover{background:var(--pri2);color:#fff}
 .btn.small{padding:11px 18px;font-size:.9rem}
-
 .hero{text-align:center}
-.hero h2{font-size:1.9rem;font-weight:800;margin-bottom:10px;line-height:1.4}
-.hero h2 span{background:linear-gradient(135deg,var(--pri3),var(--accent));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero h2{font-size:2rem;font-weight:900;margin-bottom:10px;line-height:1.4;color:#fff}
+body.light .hero h2{color:#1e1b4b}
+.hero h2 span{
+  background:linear-gradient(135deg,var(--pri3),var(--pri4));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
 .hero>p{color:var(--mut);max-width:560px;margin:0 auto 22px;font-size:1.05rem}
 .name-field{max-width:340px;margin:0 auto 22px}
 .name-field input{
@@ -118,109 +141,103 @@ body::before{
   border:1.6px solid var(--bord);background:var(--surf2);
   color:var(--txt);font-size:1rem;text-align:center;outline:none;font-family:inherit;
 }
-.name-field input:focus{border-color:var(--pri);box-shadow:0 0 0 4px rgba(124,58,237,.18)}
+.name-field input:focus{border-color:var(--pri2);box-shadow:0 0 0 4px rgba(124,58,237,.3)}
 .home-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:26px}
-
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px}
 .stat{background:var(--surf2);border:1px solid var(--bord);border-radius:18px;padding:14px;text-align:center}
 .stat .lbl{font-size:.72rem;text-transform:uppercase;letter-spacing:1px;color:var(--mut)}
-.stat .val{font-size:1.5rem;font-weight:800;color:var(--pri2)}
-
+.stat .val{font-size:1.5rem;font-weight:800;color:var(--pri3)}
 .leaderboard{margin-top:24px;text-align:right}
-.leaderboard h4{font-size:1rem;margin-bottom:10px}
+.leaderboard h4{font-size:1rem;margin-bottom:10px;color:#fff}
+body.light .leaderboard h4{color:#1e1b4b}
 .lb-row{display:flex;justify-content:space-between;padding:8px 12px;border-radius:12px;background:var(--surf2);margin-bottom:6px;font-size:.88rem}
-.lb-row .rank{color:var(--pri2);font-weight:700;margin-left:8px}
-
-/* === QR === */
+.lb-row .rank{color:var(--pri3);font-weight:700;margin-left:8px}
 .qr-wrap{text-align:center}
 #qrcode{
   display:inline-block;background:#fff;padding:18px;border-radius:22px;
-  box-shadow:0 12px 30px rgba(0,0,0,.3);margin:8px 0 14px;
+  box-shadow:0 12px 30px rgba(0,0,0,.4);margin:8px 0 14px;
   min-width:240px;min-height:240px;
   display:flex;align-items:center;justify-content:center;
 }
 #qrcode img,#qrcode canvas{display:block;width:220px;height:220px}
 .qr-notice{
   max-width:520px;margin:14px auto 0;padding:14px 18px;
-  border-radius:16px;
-  background:rgba(245,158,11,.12);
-  border:1px solid rgba(245,158,11,.4);
-  color:#fbbf24;font-size:.85rem;line-height:1.7;
-  text-align:right;
+  border-radius:16px;background:rgba(245,158,11,.15);
+  border:1px solid rgba(245,158,11,.5);color:#fbbf24;
+  font-size:.85rem;line-height:1.7;text-align:right;
 }
-.qr-notice.ok{background:rgba(16,185,129,.12);border-color:rgba(16,185,129,.4);color:#34d399}
+.qr-notice.ok{background:rgba(16,185,129,.15);border-color:rgba(16,185,129,.5);color:#34d399}
 .qr-notice b{color:#fff}
 body.light .qr-notice b{color:#1e1b4b}
 .qr-notice ol{margin:8px 20px 0 0;padding:0}
-.qr-notice code{background:rgba(0,0,0,.25);padding:2px 6px;border-radius:4px;font-family:monospace;direction:ltr;display:inline-block}
-
+.qr-notice code{background:rgba(0,0,0,.3);padding:2px 6px;border-radius:4px;font-family:monospace;direction:ltr;display:inline-block}
 .quiz-head{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:14px}
-.timer{background:var(--surf2);padding:10px 20px;border-radius:60px;border:1px solid var(--bord);font-weight:700;color:var(--pri2);font-size:1.05rem}
+.timer{background:var(--surf2);padding:10px 20px;border-radius:60px;border:1px solid var(--bord);font-weight:800;color:var(--pri3);font-size:1.1rem}
 .timer.warn{color:var(--no);border-color:var(--no);animation:pulse 1s infinite}
 @keyframes pulse{50%{opacity:.5}}
-.progress-track{height:10px;background:var(--surf2);border-radius:60px;overflow:hidden;margin-bottom:8px}
-.progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--pri),var(--accent));border-radius:60px;transition:width .35s}
+.progress-track{height:10px;background:var(--surf2);border-radius:60px;overflow:hidden;margin-bottom:8px;border:1px solid var(--bord)}
+.progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--pri),var(--pri3));border-radius:60px;transition:width .35s}
 .meta-row{display:flex;justify-content:space-between;font-size:.82rem;color:var(--mut);margin-bottom:22px}
-.q-text{font-size:1.2rem;font-weight:600;margin-bottom:20px;line-height:1.6;direction:ltr;text-align:left}
-.q-type{display:inline-block;font-size:.72rem;letter-spacing:1px;padding:4px 12px;border-radius:60px;background:rgba(124,58,237,.18);color:var(--pri3);margin-bottom:10px}
-
+.q-text{font-size:1.2rem;font-weight:600;margin-bottom:20px;line-height:1.6;direction:ltr;text-align:left;color:#fff}
+body.light .q-text{color:#1e1b4b}
+.q-type{display:inline-block;font-size:.72rem;letter-spacing:1px;padding:4px 12px;border-radius:60px;background:rgba(124,58,237,.3);color:var(--pri3);margin-bottom:10px;font-weight:700}
 .options{display:flex;flex-direction:column;gap:10px;margin-bottom:22px}
 .opt{
   display:flex;align-items:center;gap:12px;padding:15px 20px;
   border-radius:60px;border:1.6px solid var(--bord);
-  background:var(--surf2);cursor:pointer;transition:.18s;
+  background:linear-gradient(135deg, rgba(91,33,182,.25), rgba(124,58,237,.15));
+  cursor:pointer;transition:.18s;
   font-size:.98rem;direction:ltr;text-align:left;
+  backdrop-filter:blur(6px);
 }
-.opt:hover{border-color:var(--pri3)}
-.opt.selected{border-color:var(--pri);background:rgba(124,58,237,.15);box-shadow:0 0 0 3px rgba(124,58,237,.18)}
-.opt input{accent-color:var(--pri);width:18px;height:18px;flex-shrink:0}
-.opt .ltr{font-weight:700;color:var(--pri3);min-width:22px}
-.opt span:last-child{flex:1}
-
-textarea.answer{
-  width:100%;min-height:130px;padding:16px;border-radius:18px;
-  border:1.6px solid var(--bord);background:var(--surf2);
-  color:var(--txt);font-size:1rem;resize:vertical;outline:none;
-  margin-bottom:20px;font-family:inherit;direction:ltr;text-align:left;
+body.light .opt{background:linear-gradient(135deg, rgba(167,139,250,.15), rgba(196,181,253,.1))}
+.opt:hover{border-color:var(--pri3);background:linear-gradient(135deg, rgba(124,58,237,.4), rgba(167,139,250,.25))}
+.opt.selected{
+  border-color:var(--pri3);
+  background:linear-gradient(135deg, rgba(124,58,237,.6), rgba(167,139,250,.4));
+  box-shadow:0 0 0 3px rgba(167,139,250,.3);
 }
-textarea.answer:focus{border-color:var(--pri);box-shadow:0 0 0 4px rgba(124,58,237,.15)}
-
+.opt input{accent-color:var(--pri2);width:18px;height:18px;flex-shrink:0}
+.opt .ltr{font-weight:800;color:var(--pri3);min-width:22px}
+.opt span:last-child{flex:1;color:#fff;font-weight:500}
+body.light .opt span:last-child{color:#1e1b4b}
 .nav-row{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:10px}
 .nav-center{display:flex;gap:10px}
-
-.result-big{font-size:3.2rem;font-weight:900;line-height:1;background:linear-gradient(135deg,var(--pri3),var(--accent));-webkit-background-clip:text;background-clip:text;color:transparent;margin:10px 0}
-.result-pct{font-size:1.3rem;font-weight:700;color:var(--pri2)}
-.msg{margin:20px 0;font-weight:500;color:var(--mut)}
-
+.result-big{
+  font-size:3.2rem;font-weight:900;line-height:1;
+  background:linear-gradient(135deg,var(--pri3),var(--pri4));
+  -webkit-background-clip:text;background-clip:text;color:transparent;margin:10px 0;
+}
+.result-pct{font-size:1.3rem;font-weight:800;color:var(--pri3)}
+.msg{margin:20px 0;font-weight:600;color:var(--mut);font-size:1.05rem}
 .rev-item{border-right:5px solid var(--sk);background:var(--surf2);border-radius:14px;padding:16px 18px;margin-bottom:14px}
 .rev-item.correct{border-right-color:var(--ok)}
 .rev-item.incorrect{border-right-color:var(--no)}
-.rev-item .q-head{font-weight:700;margin-bottom:8px;font-size:.98rem;direction:ltr;text-align:left}
-.rev-item .tag{display:inline-block;font-size:.68rem;padding:3px 9px;border-radius:60px;margin-right:8px;letter-spacing:.8px;font-weight:700}
-.tag.ok{background:rgba(16,185,129,.18);color:var(--ok)}
-.tag.no{background:rgba(239,68,68,.18);color:var(--no)}
-.tag.sk{background:rgba(245,158,11,.18);color:var(--sk)}
+.rev-item .q-head{font-weight:700;margin-bottom:8px;font-size:.98rem;direction:ltr;text-align:left;color:#fff}
+body.light .rev-item .q-head{color:#1e1b4b}
+.rev-item .tag{display:inline-block;font-size:.68rem;padding:3px 9px;border-radius:60px;margin-right:8px;letter-spacing:.8px;font-weight:800}
+.tag.ok{background:rgba(16,185,129,.25);color:var(--ok)}
+.tag.no{background:rgba(239,68,68,.25);color:var(--no)}
+.tag.sk{background:rgba(245,158,11,.25);color:var(--sk)}
 .rev-item p{margin:5px 0;font-size:.9rem;color:var(--mut);direction:ltr;text-align:left}
-.rev-item .ans-user{color:var(--txt)}
+.rev-item .ans-user{color:#fff}
+body.light .rev-item .ans-user{color:#1e1b4b}
 .rev-item .ans-expected{color:var(--ok)}
-
 .hidden{display:none!important}
 .center{text-align:center}
 .mt{margin-top:18px}
 .flex{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
-
 #loader{position:fixed;inset:0;background:#0a0618;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;transition:opacity .5s}
 #loader.hide{opacity:0;pointer-events:none}
-.code-mark{font-family:'Courier New',monospace;font-size:2.4rem;font-weight:900;background:linear-gradient(90deg,var(--pri3),var(--accent),var(--pri3));background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 1.6s linear infinite;letter-spacing:4px}
+.code-mark{font-family:'Courier New',monospace;font-size:2.4rem;font-weight:900;background:linear-gradient(90deg,var(--pri3),var(--pri4),var(--pri3));background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 1.6s linear infinite;letter-spacing:4px}
 @keyframes shine{to{background-position:200% center}}
 .load-bar{width:180px;height:5px;background:#1e1b4b;border-radius:60px;overflow:hidden;margin-top:18px}
-.load-bar span{display:block;width:40%;height:100%;background:linear-gradient(90deg,var(--pri3),var(--accent));border-radius:60px;animation:slide 1.1s ease-in-out infinite}
+.load-bar span{display:block;width:40%;height:100%;background:linear-gradient(90deg,var(--pri3),var(--pri4));border-radius:60px;animation:slide 1.1s ease-in-out infinite}
 @keyframes slide{0%{transform:translateX(-120%)}100%{transform:translateX(320%)}}
-
 @media(max-width:600px){
   body{padding:14px 10px 50px}
   .card{padding:20px;border-radius:20px}
-  .hero h2{font-size:1.4rem}
+  .hero h2{font-size:1.5rem}
   .home-actions .btn{width:100%}
   .q-text{font-size:1rem}
   .opt{font-size:.88rem;padding:13px 16px}
@@ -232,77 +249,68 @@ textarea.answer:focus{border-color:var(--pri);box-shadow:0 0 0 4px rgba(124,58,2
 }
 @media print{
   body{background:#fff;padding:.4in;color:#000}
-  body::before,.bg-shield,.bg-slogan{display:none}
+  .bg-photo,.bg-purple,.bg-grid,.bg-overlay,.bg-shield{display:none}
   .no-print{display:none!important}
-  .card{box-shadow:none;border:1px solid #ccc;page-break-inside:avoid}
-  .result-big,.result-pct{color:#4c1d95!important;-webkit-text-fill-color:#4c1d95}
+  .card{box-shadow:none;border:1px solid #ccc;page-break-inside:avoid;background:#fff!important}
+  .result-big,.result-pct{color:#5B21B6!important;-webkit-text-fill-color:#5B21B6}
+  .hero h2,.q-text,.opt span:last-child,.leaderboard h4{color:#1e1b4b!important}
 }
 </style>
 </head>
 <body>
 
-<!-- ============ BACKGROUND LAYER ============ -->
+<div class="bg-photo" id="bgPhoto"></div>
+<div class="bg-purple"></div>
+<div class="bg-grid"></div>
+<div class="bg-overlay"></div>
+
 <div class="bg-shield">
 <svg viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <linearGradient id="shieldGrad" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#7c3aed"/>
-      <stop offset="100%" stop-color="#5b21b6"/>
+      <stop offset="0%" stop-color="#7C3AED"/>
+      <stop offset="100%" stop-color="#5B21B6"/>
     </linearGradient>
   </defs>
-  <path d="M50 3 L95 20 L95 55 Q95 90 50 107 Q5 90 5 55 L5 20 Z"
-        fill="url(#shieldGrad)" stroke="#a78bfa" stroke-width="1.5"/>
-  <text x="50" y="45" font-size="18" text-anchor="middle"
-        fill="white" font-family="monospace" font-weight="900">&lt;/&gt;</text>
+  <path d="M50 3 L95 20 L95 55 Q95 90 50 107 Q5 90 5 55 L5 20 Z" fill="url(#shieldGrad)" stroke="#A78BFA" stroke-width="1.5"/>
+  <text x="50" y="45" font-size="18" text-anchor="middle" fill="white" font-family="monospace" font-weight="900">&lt;/&gt;</text>
   <line x1="18" y1="55" x2="82" y2="55" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/>
   <circle cx="50" cy="78" r="16" fill="none" stroke="white" stroke-width="1.8"/>
   <circle cx="50" cy="78" r="16" fill="none" stroke="white" stroke-width="1.8" stroke-dasharray="2 3"/>
-  <text x="50" y="85" font-size="14" text-anchor="middle"
-        fill="white" font-weight="900">WE</text>
+  <text x="50" y="85" font-size="14" text-anchor="middle" fill="white" font-weight="900">WE</text>
 </svg>
 </div>
 
-<div class="bg-slogan">
-  <div class="line1">مدارس</div>
-  <div class="line2">للتكنولوجيا</div>
-  <div class="line3">التطبيقية</div>
-</div>
-
-<!-- LOADER -->
 <div id="loader">
   <div class="code-mark">&lt;/&gt;</div>
   <div class="load-bar"><span></span></div>
-  <p style="color:#a78bfa;margin-top:16px;font-size:.85rem;letter-spacing:2px;font-weight:700">
-    مدارس WE للتكنولوجيا التطبيقية
+  <p style="color:#A78BFA;margin-top:16px;font-size:.85rem;letter-spacing:2px;font-weight:800">
+    Anas WE Quiz · Miss Mariam
   </p>
 </div>
 
 <div class="app">
 
-  <!-- TOP BAR -->
   <div class="topbar no-print">
     <div class="brand">
       <div class="we-shield">
         <svg viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <linearGradient id="shieldGrad2" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#7c3aed"/>
-              <stop offset="100%" stop-color="#5b21b6"/>
+              <stop offset="0%" stop-color="#7C3AED"/>
+              <stop offset="100%" stop-color="#5B21B6"/>
             </linearGradient>
           </defs>
-          <path d="M50 3 L95 20 L95 55 Q95 90 50 107 Q5 90 5 55 L5 20 Z"
-                fill="url(#shieldGrad2)" stroke="#a78bfa" stroke-width="1.5"/>
-          <text x="50" y="45" font-size="18" text-anchor="middle"
-                fill="white" font-family="monospace" font-weight="900">&lt;/&gt;</text>
+          <path d="M50 3 L95 20 L95 55 Q95 90 50 107 Q5 90 5 55 L5 20 Z" fill="url(#shieldGrad2)" stroke="#A78BFA" stroke-width="1.5"/>
+          <text x="50" y="45" font-size="18" text-anchor="middle" fill="white" font-family="monospace" font-weight="900">&lt;/&gt;</text>
           <line x1="18" y1="55" x2="82" y2="55" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/>
           <circle cx="50" cy="78" r="16" fill="none" stroke="white" stroke-width="1.8"/>
-          <text x="50" y="85" font-size="14" text-anchor="middle"
-                fill="white" font-weight="900">WE</text>
+          <text x="50" y="85" font-size="14" text-anchor="middle" fill="white" font-weight="900">WE</text>
         </svg>
       </div>
       <div class="brand-text">
-        <h1>مدارس WE للتكنولوجيا التطبيقية</h1>
-        <p>WE Quiz Challenge · البرمجة وتطوير الويب G2 · الفصل الأول 2026–2027</p>
+        <h1>Anas WE Quiz</h1>
+        <p>مدارس WE للتكنولوجيا التطبيقية · Miss Mariam Theme</p>
       </div>
     </div>
     <div class="controls">
@@ -315,11 +323,10 @@ textarea.answer:focus{border-color:var(--pri);box-shadow:0 0 0 4px rgba(124,58,2
     ✦ تكنولوجيا عالمية بأيدي شباب المصري ✦
   </div>
 
-  <!-- HOME -->
   <div id="homeView">
     <div class="card hero">
-      <h2>مرحباً بك في <span>تحدي WE للاختبارات!</span></h2>
-      <p>تدرّب، تعلّم، واختبر مهاراتك في البرمجة وتطوير الويب.</p>
+      <h2>مرحباً بك في <span>Anas WE Quiz!</span></h2>
+      <p>تدرّب، تعلّم، واختبر مهاراتك في البرمجة وتطوير الويب — مع Miss Mariam.</p>
       <div class="name-field">
         <input type="text" id="studentName" placeholder="اكتب اسمك (اختياري)" maxlength="40">
       </div>
@@ -341,7 +348,6 @@ textarea.answer:focus{border-color:var(--pri);box-shadow:0 0 0 4px rgba(124,58,2
       </div>
     </div>
 
-    <!-- QR SHARE -->
     <div class="card qr-wrap no-print">
       <h3 style="margin-bottom:8px">📱 شارك الاختبار</h3>
       <div id="qrcode"></div>
@@ -354,25 +360,15 @@ textarea.answer:focus{border-color:var(--pri);box-shadow:0 0 0 4px rgba(124,58,2
       <div id="qrNotice" class="qr-notice"></div>
     </div>
 
-    <!-- REVIEW -->
-    <div class="card">
-      <h3>✅ مراجعة الإجابات</h3>
-      <p style="color:var(--mut);margin:8px 0 12px">
-        بعد إنهاء الاختبار ستحصل على مراجعة كاملة بالإجابات الصحيحة والتفسيرات.
-      </p>
-      <button class="btn ghost small" id="openReviewHome">افتح المراجعة (بعد الاختبار)</button>
-    </div>
-
-    <!-- ABOUT / CREDITS -->
     <div class="card">
       <h3>ℹ️ عن المشروع</h3>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:14px;font-size:.94rem">
-        <p><b style="color:var(--pri2)">الطالب:</b> أنس</p>
-        <p><b style="color:var(--pri2)">المدرسة:</b> مدارس WE للتكنولوجيا التطبيقية</p>
-        <p><b style="color:var(--pri2)">مديرة المدرسة:</b> أ. سميرة</p>
-        <p><b style="color:var(--pri2)">المدير التنفيذي:</b> أ. أحمد السيد</p>
-        <p><b style="color:var(--pri2)">المعلمة:</b> م. مريم</p>
-        <p><b style="color:var(--pri2)">المعلمة:</b> رفيدة</p>
+        <p><b style="color:var(--pri3)">الطالب:</b> أنس</p>
+        <p><b style="color:var(--pri3)">المدرسة:</b> مدارس WE للتكنولوجيا التطبيقية</p>
+        <p><b style="color:var(--pri3)">مديرة المدرسة:</b> أ. سميرة</p>
+        <p><b style="color:var(--pri3)">المدير التنفيذي:</b> أ. أحمد السيد</p>
+        <p><b style="color:var(--pri3)">المعلمة:</b> Miss Mariam</p>
+        <p><b style="color:var(--pri3)">المعلمة:</b> Miss Rafida</p>
       </div>
       <p style="font-size:.72rem;color:var(--mut);margin-top:16px">
         مشروع طلابي للمراجعة. غير معتمد رسمياً من المدرسة.
@@ -380,12 +376,11 @@ textarea.answer:focus{border-color:var(--pri);box-shadow:0 0 0 4px rgba(124,58,2
     </div>
   </div>
 
-  <!-- QUIZ -->
   <div id="quizView" class="hidden">
     <div class="card">
       <div class="quiz-head">
-        <div>👤 <b id="quizName">طالب</b> <span id="modeTag" style="color:var(--pri2);font-size:.85rem"></span></div>
-        <div class="timer" id="timerBox">⏱ <span id="timerText">20:00</span></div>
+        <div>👤 <b id="quizName">طالب</b> <span id="modeTag" style="color:var(--pri3);font-size:.85rem"></span></div>
+        <div class="timer" id="timerBox">⏱ <span id="timerText">25:00</span></div>
       </div>
       <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
       <div class="meta-row">
@@ -406,7 +401,6 @@ textarea.answer:focus{border-color:var(--pri);box-shadow:0 0 0 4px rgba(124,58,2
     </div>
   </div>
 
-  <!-- RESULT -->
   <div id="resultView" class="hidden">
     <div class="card center" id="certificate">
       <h2 style="font-size:1.4rem">تم إكمال الاختبار</h2>
@@ -425,12 +419,11 @@ textarea.answer:focus{border-color:var(--pri);box-shadow:0 0 0 4px rgba(124,58,2
         <button class="btn ghost" onclick="window.print()">🖨 طباعة الشهادة</button>
       </div>
       <p style="font-size:.72rem;color:var(--mut);margin-top:18px">
-        WE Quiz Challenge · مدارس WE للتكنولوجيا التطبيقية
+        Anas WE Quiz · Miss Mariam Theme
       </p>
     </div>
   </div>
 
-  <!-- REVIEW -->
   <div id="reviewView" class="hidden">
     <div class="card">
       <h2 style="margin-bottom:18px">📋 مراجعة الإجابات</h2>
@@ -441,7 +434,6 @@ textarea.answer:focus{border-color:var(--pri);box-shadow:0 0 0 4px rgba(124,58,2
 </div>
 
 <script>
-/* ============ QR CODE ENGINE (offline, public domain) ============ */
 var QR=(function(){
 "use strict";
 function QR8bitByte(data){this.mode=4;this.data=data;this.parsedData=[];for(var i=0,l=data.length;i<l;i++){var b=data.charCodeAt(i);if(b>255)b-=256;this.parsedData.push(b)}}
@@ -459,17 +451,15 @@ for(var i=0;i<255;i++)QRMath.LOG_TABLE[QRMath.EXP_TABLE[i]]=i;
 function QRPolynomial(num,shift){
 if(num.length==undefined)throw new Error(num.length+"/"+shift);
 var offset=0;while(offset<num.length&&num[offset]==0)offset++;
-this.num=[];
-for(var i=0;i<num.length-offset;i++)this.num.push(num[offset+i]);
+this.num=[];for(var i=0;i<num.length-offset;i++)this.num.push(num[offset+i]);
 for(var i=0;i<shift;i++)this.num.push(0);
 }
-QRPolynomial.prototype.get=function(index){return this.num[index]};
+QRPolynomial.prototype.get=function(i){return this.num[i]};
 QRPolynomial.prototype.getLength=function(){return this.num.length};
 QRPolynomial.prototype.multiply=function(e){
 var num=new Array(this.getLength()+e.getLength()-1);
 for(var i=0;i<num.length;i++)num[i]=0;
-for(var i=0;i<this.getLength();i++)for(var j=0;j<e.getLength();j++)
-num[i+j]^=QRMath.gexp(QRMath.glog(this.get(i)) + QRMath.glog(e.get(j)));
+for(var i=0;i<this.getLength();i++)for(var j=0;j<e.getLength();j++)num[i+j]^=QRMath.gexp(QRMath.glog(this.get(i))+QRMath.glog(e.get(j)));
 return new QRPolynomial(num,0);
 };
 QRPolynomial.prototype.mod=function(e){
@@ -479,66 +469,45 @@ var num=this.num.slice();
 for(var i=0;i<e.getLength();i++)num[i]^=QRMath.gexp(QRMath.glog(e.get(i))+ratio);
 return new QRPolynomial(num,0).mod(e);
 };
-var QRRSBlock=function(totalCount,dataCount){this.totalCount=totalCount;this.dataCount=dataCount};
+var QRRSBlock=function(t,d){this.totalCount=t;this.dataCount=d};
 QRRSBlock.RS_BLOCK_TABLE=[
-[1,26,19],[1,26,16],[1,26,13],[1,26,9],
-[1,44,34],[1,44,28],[1,44,22],[1,44,16],
-[1,70,55],[1,70,44],[2,35,17],[2,35,13],
-[1,100,80],[2,50,32],[2,50,24],[4,25,9],
-[1,134,108],[2,67,43],[2,33,15,2,34,16],[2,33,11,2,34,12],
-[2,86,68],[4,43,27],[4,43,19],[4,43,15],
-[2,98,78],[4,49,31],[2,32,14,4,33,15],[4,39,13,1,40,14],
-[2,121,97],[2,60,38,2,61,39],[4,40,18,2,41,19],[4,40,14,2,41,15],
-[2,146,116],[3,58,36,2,59,37],[4,36,16,4,37,17],[4,36,12,4,37,13],
-[2,86,68,2,87,69],[4,69,43,1,70,44],[6,43,19,2,44,20],[6,43,15,2,44,16],
-[4,101,81],[1,80,50,4,81,51],[4,50,22,4,51,23],[3,36,12,8,37,13],
-[2,116,92,2,117,93],[6,58,36,2,59,37],[4,46,20,6,47,21],[7,42,14,4,43,15],
-[4,133,107],[8,59,37,1,60,38],[8,44,20,4,45,21],[12,33,11,4,34,12],
-[3,145,115,1,146,116],[4,64,40,5,65,41],[11,36,16,5,37,17],[11,36,12,5,37,13],
-[5,109,87,1,110,88],[5,65,41,5,66,42],[5,54,24,7,55,25],[11,36,12,7,37,13],
-[5,122,98,1,123,99],[7,73,45,3,74,46],[15,43,19,2,44,20],[3,45,15,13,46,16],
-[1,135,107,5,136,108],[10,74,46,1,75,47],[1,50,22,15,51,23],[2,42,14,17,43,15],
-[5,150,120,1,151,121],[9,69,43,4,70,44],[17,50,22,1,51,23],[2,42,14,19,43,15],
-[3,141,113,4,142,114],[3,70,44,11,71,45],[17,47,21,4,48,22],[9,39,13,16,40,14],
-[3,135,107,5,136,108],[3,67,41,13,68,42],[15,54,24,5,55,25],[15,43,15,10,44,16],
-[4,144,116,4,145,117],[17,68,42],[17,50,22,6,51,23],[19,46,16,6,47,17],
-[2,139,111,7,140,112],[17,74,46],[7,54,24,16,55,25],[34,37,13],
-[4,151,121,5,152,122],[4,75,47,14,76,48],[11,54,24,14,55,25],[16,45,15,14,46,16],
-[6,147,117,4,148,118],[6,73,45,14,74,46],[11,54,24,16,55,25],[30,46,16,2,47,17],
-[8,132,106,4,133,107],[8,75,47,13,76,48],[7,54,24,22,55,25],[22,45,15,13,46,16],
-[10,142,114,2,143,115],[19,74,46,4,75,47],[28,50,22,6,51,23],[33,46,16,4,47,17],
-[8,152,122,4,153,123],[22,73,45,3,74,46],[8,53,23,26,54,24],[12,45,15,28,46,16],
-[3,147,117,10,148,118],[3,73,45,23,74,46],[4,54,24,31,55,25],[11,45,15,31,46,16],
-[7,146,116,7,147,117],[21,73,45,7,74,46],[1,53,23,37,54,24],[19,45,15,26,46,16],
-[5,145,115,10,146,116],[19,75,47,10,76,48],[15,54,24,25,55,25],[23,45,15,25,46,16],
-[13,145,115,3,146,116],[2,74,46,29,75,47],[42,54,24,1,55,25],[23,45,15,28,46,16],
-[17,145,115],[10,74,46,23,75,47],[10,54,24,35,55,25],[19,45,15,35,46,16],
-[17,145,115,1,146,116],[14,74,46,21,75,47],[29,54,24,19,55,25],[11,45,15,46,46,16],
-[13,145,115,6,146,116],[14,74,46,23,75,47],[44,54,24,7,55,25],[59,46,16,1,47,17],
-[12,151,121,7,152,122],[12,75,47,26,76,48],[39,54,24,14,55,25],[22,45,15,41,46,16],
-[6,151,121,14,152,122],[6,75,47,34,76,48],[46,54,24,10,55,25],[2,45,15,64,46,16],
-[17,152,122,4,153,123],[29,74,46,14,75,47],[49,54,24,10,55,25],[24,45,15,46,46,16],
-[4,152,122,18,153,123],[13,74,46,32,75,47],[48,54,24,14,55,25],[42,45,15,32,46,16],
-[20,147,117,4,148,118],[40,75,47,7,76,48],[43,54,24,22,55,25],[10,45,15,67,46,16],
-[19,148,118,6,149,119],[18,75,47,31,76,48],[34,54,24,34,55,25],[20,45,15,61,46,16]
+[1,26,19],[1,26,16],[1,26,13],[1,26,9],[1,44,34],[1,44,28],[1,44,22],[1,44,16],
+[1,70,55],[1,70,44],[2,35,17],[2,35,13],[1,100,80],[2,50,32],[2,50,24],[4,25,9],
+[1,134,108],[2,67,43],[2,33,15,2,34,16],[2,33,11,2,34,12],[2,86,68],[4,43,27],[4,43,19],[4,43,15],
+[2,98,78],[4,49,31],[2,32,14,4,33,15],[4,39,13,1,40,14],[2,121,97],[2,60,38,2,61,39],[4,40,18,2,41,19],[4,40,14,2,41,15],
+[2,146,116],[3,58,36,2,59,37],[4,36,16,4,37,17],[4,36,12,4,37,13],[2,86,68,2,87,69],[4,69,43,1,70,44],[6,43,19,2,44,20],[6,43,15,2,44,16],
+[4,101,81],[1,80,50,4,81,51],[4,50,22,4,51,23],[3,36,12,8,37,13],[2,116,92,2,117,93],[6,58,36,2,59,37],[4,46,20,6,47,21],[7,42,14,4,43,15],
+[4,133,107],[8,59,37,1,60,38],[8,44,20,4,45,21],[12,33,11,4,34,12],[3,145,115,1,146,116],[4,64,40,5,65,41],[11,36,16,5,37,17],[11,36,12,5,37,13],
+[5,109,87,1,110,88],[5,65,41,5,66,42],[5,54,24,7,55,25],[11,36,12,7,37,13],[5,122,98,1,123,99],[7,73,45,3,74,46],[15,43,19,2,44,20],[3,45,15,13,46,16],
+[1,135,107,5,136,108],[10,74,46,1,75,47],[1,50,22,15,51,23],[2,42,14,17,43,15],[5,150,120,1,151,121],[9,69,43,4,70,44],[17,50,22,1,51,23],[2,42,14,19,43,15],
+[3,141,113,4,142,114],[3,70,44,11,71,45],[17,47,21,4,48,22],[9,39,13,16,40,14],[3,135,107,5,136,108],[3,67,41,13,68,42],[15,54,24,5,55,25],[15,43,15,10,44,16],
+[4,144,116,4,145,117],[17,68,42],[17,50,22,6,51,23],[19,46,16,6,47,17],[2,139,111,7,140,112],[17,74,46],[7,54,24,16,55,25],[34,37,13],
+[4,151,121,5,152,122],[4,75,47,14,76,48],[11,54,24,14,55,25],[16,45,15,14,46,16],[6,147,117,4,148,118],[6,73,45,14,74,46],[11,54,24,16,55,25],[30,46,16,2,47,17],
+[8,132,106,4,133,107],[8,75,47,13,76,48],[7,54,24,22,55,25],[22,45,15,13,46,16],[10,142,114,2,143,115],[19,74,46,4,75,47],[28,50,22,6,51,23],[33,46,16,4,47,17],
+[8,152,122,4,153,123],[22,73,45,3,74,46],[8,53,23,26,54,24],[12,45,15,28,46,16],[3,147,117,10,148,118],[3,73,45,23,74,46],[4,54,24,31,55,25],[11,45,15,31,46,16],
+[7,146,116,7,147,117],[21,73,45,7,74,46],[1,53,23,37,54,24],[19,45,15,26,46,16],[5,145,115,10,146,116],[19,75,47,10,76,48],[15,54,24,25,55,25],[23,45,15,25,46,16],
+[13,145,115,3,146,116],[2,74,46,29,75,47],[42,54,24,1,55,25],[23,45,15,28,46,16],[17,145,115],[10,74,46,23,75,47],[10,54,24,35,55,25],[19,45,15,35,46,16],
+[17,145,115,1,146,116],[14,74,46,21,75,47],[29,54,24,19,55,25],[11,45,15,46,46,16],[13,145,115,6,146,116],[14,74,46,23,75,47],[44,54,24,7,55,25],[59,46,16,1,47,17],
+[12,151,121,7,152,122],[12,75,47,26,76,48],[39,54,24,14,55,25],[22,45,15,41,46,16],[6,151,121,14,152,122],[6,75,47,34,76,48],[46,54,24,10,55,25],[2,45,15,64,46,16],
+[17,152,122,4,153,123],[29,74,46,14,75,47],[49,54,24,10,55,25],[24,45,15,46,46,16],[4,152,122,18,153,123],[13,74,46,32,75,47],[48,54,24,14,55,25],[42,45,15,32,46,16],
+[20,147,117,4,148,118],[40,75,47,7,76,48],[43,54,24,22,55,25],[10,45,15,67,46,16],[19,148,118,6,149,119],[18,75,47,31,76,48],[34,54,24,34,55,25],[20,45,15,61,46,16]
 ];
 QRRSBlock.getRSBlocks=function(typeNumber,errorCorrectLevel){
 var rsBlock=QRRSBlock.getRsBlockTable(typeNumber,errorCorrectLevel);
 if(rsBlock==undefined)throw new Error("bad rs block");
-var length=rsBlock.length/3;
-var list=[];
+var length=rsBlock.length/3;var list=[];
 for(var i=0;i<length;i++){
 var count=rsBlock[i*3+0];var totalCount=rsBlock[i*3+1];var dataCount=rsBlock[i*3+2];
 for(var j=0;j<count;j++)list.push(new QRRSBlock(totalCount,dataCount));
 }
 return list;
 };
-QRRSBlock.getRsBlockTable=function(typeNumber,errorCorrectLevel){
-switch(errorCorrectLevel){
-case QRErrorCorrectLevel.L:return QRRSBlock.RS_BLOCK_TABLE[(typeNumber-1)*4+0];
-case QRErrorCorrectLevel.M:return QRRSBlock.RS_BLOCK_TABLE[(typeNumber-1)*4+1];
-case QRErrorCorrectLevel.Q:return QRRSBlock.RS_BLOCK_TABLE[(typeNumber-1)*4+2];
-case QRErrorCorrectLevel.H:return QRRSBlock.RS_BLOCK_TABLE[(typeNumber-1)*4+3];
+QRRSBlock.getRsBlockTable=function(t,e){
+switch(e){
+case QRErrorCorrectLevel.L:return QRRSBlock.RS_BLOCK_TABLE[(t-1)*4+0];
+case QRErrorCorrectLevel.M:return QRRSBlock.RS_BLOCK_TABLE[(t-1)*4+1];
+case QRErrorCorrectLevel.Q:return QRRSBlock.RS_BLOCK_TABLE[(t-1)*4+2];
+case QRErrorCorrectLevel.H:return QRRSBlock.RS_BLOCK_TABLE[(t-1)*4+3];
 }
 return undefined;
 };
@@ -681,7 +650,7 @@ var buffer=new QRBitBuffer();
 for(var i=0;i<dataList.length;i++){var data=dataList[i];buffer.put(data.mode,4);buffer.put(data.getLength(),QRUtil.getLengthInBits(data.mode,typeNumber));data.write(buffer);}
 var totalDataCount=0;
 for(var i=0;i<rsBlocks.length;i++)totalDataCount+=rsBlocks[i].dataCount;
-if(buffer.getLengthInBits()>totalDataCount*8)throw new Error("code length overflow.");
+if(buffer.getLengthInBits()>totalDataCount*8)throw new Error("overflow");
 if(buffer.getLengthInBits()+4<=totalDataCount*8)buffer.put(0,4);
 while(buffer.getLengthInBits()%8!=0)buffer.putBit(false);
 while(true){
@@ -705,7 +674,7 @@ var rsPoly=QRUtil.getErrorCorrectPolynomial(ecCount);
 var rawPoly=new QRPolynomial(dcdata[r],rsPoly.getLength()-1);
 var modPoly=rawPoly.mod(rsPoly);
 ecdata[r]=new Array(rsPoly.getLength()-1);
-for(var i=0;i<ecdata[r].length;i++){var modIndex=i+modPoly.getLength()-ecdata[r].length;ecdata[r][i]=(modIndex>=0)?modPoly.get(modIndex):0;}
+for(var i=0;i<ecdata[r].length;i++){var mi=i+modPoly.getLength()-ecdata[r].length;ecdata[r][i]=(mi>=0)?modPoly.get(mi):0;}
 }
 var totalCodeCount=0;
 for(var i=0;i<rsBlocks.length;i++)totalCodeCount+=rsBlocks[i].totalCount;
@@ -716,7 +685,7 @@ return data;
 };
 var QRUtil={};
 QRUtil.PATTERN_POSITION_TABLE=[[],[6,18],[6,22],[6,26],[6,30],[6,34],[6,22,38],[6,24,42],[6,26,46],[6,28,50],[6,30,54],[6,32,58],[6,34,62],[6,26,46,66],[6,26,48,70],[6,26,50,74],[6,30,54,78],[6,30,56,82],[6,30,58,86],[6,34,62,90],[6,28,50,72,94],[6,26,50,74,98],[6,30,54,78,102],[6,28,54,80,106],[6,32,58,84,110],[6,30,58,86,114],[6,34,62,90,118],[6,26,50,74,98,122],[6,30,54,78,102,126],[6,26,52,78,104,130],[6,30,56,82,108,134],[6,34,60,86,112,138],[6,30,58,86,114,142],[6,34,62,90,118,146],[6,30,54,78,102,126,150],[6,24,50,76,102,128,154],[6,28,54,80,106,132,158],[6,32,58,84,110,136,162],[6,26,54,82,110,138,166],[6,30,58,86,114,142,170]];
-QRUtil.getPatternPosition=function(typeNumber){return QRUtil.PATTERN_POSITION_TABLE[typeNumber-1];};
+QRUtil.getPatternPosition=function(t){return QRUtil.PATTERN_POSITION_TABLE[t-1]};
 QRUtil.getBCHTypeInfo=function(data){
 var d=data<<10;
 while(QRUtil.getBCHDigit(d)-QRUtil.getBCHDigit(QRUtil.G15)>=0){d^=(QRUtil.G15<<(QRUtil.getBCHDigit(d)-QRUtil.getBCHDigit(QRUtil.G15)));}
@@ -741,12 +710,12 @@ case QRMaskPattern.PATTERN100:return(Math.floor(i/2)+Math.floor(j/3))%2==0;
 case QRMaskPattern.PATTERN101:return(i*j)%2+(i*j)%3==0;
 case QRMaskPattern.PATTERN110:return((i*j)%2+(i*j)%3)%2==0;
 case QRMaskPattern.PATTERN111:return((i*j)%3+(i+j)%2)%2==0;
-default:throw new Error("bad maskPattern:"+maskPattern);
+default:throw new Error("bad mask");
 }
 };
-QRUtil.getErrorCorrectPolynomial=function(errorCorrectLength){
+QRUtil.getErrorCorrectPolynomial=function(n){
 var a=new QRPolynomial([1],0);
-for(var i=0;i<errorCorrectLength;i++)a=a.multiply(new QRPolynomial([1,QRMath.gexp(i)],0));
+for(var i=0;i<n;i++)a=a.multiply(new QRPolynomial([1,QRMath.gexp(i)],0));
 return a;
 };
 QRUtil.getLengthInBits=function(mode,type){
@@ -799,17 +768,11 @@ qrcode.getModuleCount=QRCodeModel.prototype.getModuleCount;
 return qrcode;
 }
 function render(text,size,fg,bg){
-var typeNumber=1;
-var qr=null;
+var typeNumber=1;var qr=null;
 for(var t=1;t<=10;t++){
-try{
-qr=qrcode(t,QRErrorCorrectLevel.M);
-qr.addData(text);
-qr.make();
-break;
-}catch(e){qr=null;}
+try{qr=qrcode(t,QRErrorCorrectLevel.M);qr.addData(text);qr.make();break;}catch(e){qr=null;}
 }
-if(!qr)throw new Error("Text too long for QR");
+if(!qr)throw new Error("Text too long");
 var count=qr.getModuleCount();
 var cellSize=Math.max(2,Math.floor(size/count));
 var realSize=cellSize*count;
@@ -818,39 +781,40 @@ canvas.width=realSize;canvas.height=realSize;
 var ctx=canvas.getContext('2d');
 ctx.fillStyle=bg;ctx.fillRect(0,0,realSize,realSize);
 ctx.fillStyle=fg;
-for(var r=0;r<count;r++)for(var c=0;c<count;c++){
-if(qr.isDark(r,c))ctx.fillRect(c*cellSize,r*cellSize,cellSize,cellSize);
-}
+for(var r=0;r<count;r++)for(var c=0;c<count;c++){if(qr.isDark(r,c))ctx.fillRect(c*cellSize,r*cellSize,cellSize,cellSize);}
 return canvas;
 }
 return{render:render};
 })();
 
-/* ============ DATA ============ */
+/* ===== كل الأسئلة اختيارات (20 سؤال MCQ) ===== */
 var BANK=[
 {id:1,type:'mcq',q:'Which software is used to access websites and view their content?',opts:['Server','Code editor','Browser','Domain name'],correct:2,exp:'A browser (e.g. Chrome, Firefox) is used to access and view websites.'},
-{id:2,type:'tf',q:'HTML is a programming language used to write logic for web pages.',correct:false,exp:'HTML is a markup language for structure, not a programming language with logic.'},
+{id:2,type:'mcq',q:'What does HTML stand for?',opts:['Hypertext Markup Language','Hypertext Machine Language','Home Tool Markup Language','Hyperlink Text Making Language'],correct:0,exp:'HTML = Hypertext Markup Language. It is used to describe the structure of a web page.'},
 {id:3,type:'mcq',q:'Which tag is the root element of an HTML document?',opts:['<html>','<head>','<body>','<title>'],correct:0,exp:'<html> wraps the entire HTML document.'},
-{id:4,type:'short',q:'Define HTML and state what it stands for.',correct:'HTML stands for Hypertext Markup Language. It is used to describe the structure of a web page.',exp:'HTML describes the structure of web pages using markup.'},
-{id:5,type:'tf',q:'The <head> section contains the content that is displayed on the webpage.',correct:false,exp:'The <head> contains metadata; visible content is in <body>.'},
+{id:4,type:'mcq',q:'HTML is a programming language used to write logic for web pages.',opts:['True','False'],correct:1,exp:'HTML is a markup language for structure, not a programming language with logic.'},
+{id:5,type:'mcq',q:'The <head> section contains the content that is displayed on the webpage.',opts:['True','False'],correct:1,exp:'The <head> contains metadata; visible content is in <body>.'},
 {id:6,type:'mcq',q:'Which attribute of the <a> tag specifies the URL of the target resource?',opts:['src','href','alt','title'],correct:1,exp:'The href attribute holds the hyperlink reference.'},
-{id:7,type:'short',q:'Compare the src and alt attributes of the <img> tag.',correct:'src defines the path to the image, while alt provides alternative text describing the image.',exp:'src is the image source, alt is the fallback text.'},
-{id:8,type:'tf',q:'The required attribute prevents form submission until the field has a value.',correct:true,exp:'Yes — required enforces that the field must be filled.'},
+{id:7,type:'mcq',q:'What is the difference between src and alt attributes of the <img> tag?',opts:['src defines the image path, alt provides alternative text','src provides alternative text, alt defines the image path','Both do the same thing','Neither is used in <img>'],correct:0,exp:'src defines the path to the image, while alt provides alternative text describing the image.'},
+{id:8,type:'mcq',q:'The required attribute prevents form submission until the field has a value.',opts:['True','False'],correct:0,exp:'Yes — required enforces that the field must be filled.'},
 {id:9,type:'mcq',q:'Which element allows users to enter multi-line text?',opts:['<input type="text">','<p>','<div>','<textarea>'],correct:3,exp:'<textarea> is designed for multi-line text input.'},
-{id:10,type:'short',q:'Compare radio buttons and checkboxes.',correct:'Radio buttons allow only one selection, while checkboxes allow selecting one or more options.',exp:'Radio = single choice; checkbox = multiple choices.'},
+{id:10,type:'mcq',q:'What is the difference between radio buttons and checkboxes?',opts:['Radio allows only one selection, checkbox allows multiple','Radio allows multiple, checkbox allows only one','They are exactly the same','Radio is for text, checkbox is for numbers'],correct:0,exp:'Radio buttons allow only one selection, while checkboxes allow selecting one or more options.'},
 {id:11,type:'mcq',q:'Which attribute is used to merge two table columns into one?',opts:['rowspan','merge','colspan','span'],correct:2,exp:'colspan merges columns horizontally.'},
-{id:12,type:'tf',q:'The <video> element can be written without an end tag, like the <img> tag.',correct:false,exp:'<video> requires a closing tag.'},
-{id:13,type:'short',q:'Explain the structure of a CSS rule.',correct:'A CSS rule has a selector and a declaration containing property-value pairs.',exp:'Selector + { property: value; }'},
+{id:12,type:'mcq',q:'The <video> element can be written without an end tag, like the <img> tag.',opts:['True','False'],correct:1,exp:'<video> requires a closing tag.'},
+{id:13,type:'mcq',q:'What are the components of a CSS rule?',opts:['A selector and a declaration with property-value pairs','Only a selector','Only a declaration','A tag and an attribute'],correct:0,exp:'A CSS rule has a selector and a declaration containing property-value pairs.'},
 {id:14,type:'mcq',q:'Which CSS property is used to change the text color?',opts:['color','font-color','text-color','text-style'],correct:0,exp:'The color property sets text color.'},
 {id:15,type:'mcq',q:'What is the default value of the box-sizing property?',opts:['border-box','padding-box','content-box','margin-box'],correct:2,exp:'Default box-sizing is content-box.'},
-{id:16,type:'tf',q:'CSS is used to describe the structure of a webpage.',correct:false,exp:'CSS is for presentation and styling; structure comes from HTML.'},
+{id:16,type:'mcq',q:'CSS is used to describe the structure of a webpage.',opts:['True','False'],correct:1,exp:'CSS is for presentation and styling; structure comes from HTML.'},
 {id:17,type:'mcq',q:'What is the benefit of semantic HTML for accessibility?',opts:['Makes pages load faster','Reduces CSS needs','Helps screen readers interpret content','Improves image quality'],correct:2,exp:'Semantic HTML helps assistive technologies understand content.'},
-{id:18,type:'short',q:'Define a wireframe and explain why it is created before coding.',correct:"A wireframe is a blueprint of a webpage's layout and structure. It helps visualize and refine the design before coding.",exp:'Wireframes are low-fidelity sketches of layout.'},
-{id:19,type:'tf',q:'An element with position: absolute; is removed from the normal flow of the document.',correct:true,exp:'Absolutely positioned elements are taken out of the normal flow.'},
+{id:18,type:'mcq',q:'What is a wireframe and why is it created before coding?',opts:['A blueprint of the webpage layout to plan before coding','A finished webpage design ready to publish','A type of CSS framework','A JavaScript library'],correct:0,exp:"A wireframe is a blueprint of a webpage's layout and structure. It helps visualize and refine the design before coding."},
+{id:19,type:'mcq',q:'An element with position: absolute; is removed from the normal flow of the document.',opts:['True','False'],correct:0,exp:'Absolutely positioned elements are taken out of the normal flow.'},
 {id:20,type:'mcq',q:'What does a media query typically check?',opts:['Device characteristics like screen width',"The user's location",'The browser version','The operating system'],correct:0,exp:'Media queries apply styles based on device features like width.'}
 ];
 
-var quizOrder=[],curIdx=0,answers=[],practice=false,timerId=null,timeLeft=1200,quizStart=0,soundOn=true,lastResult=null;
+var quizOrder=[],curIdx=0,answers=[],practice=false,timerId=null;
+var TIME_LIMIT=25*60;
+var timeLeft=TIME_LIMIT,quizStart=0,soundOn=true,lastResult=null;
+
 function $(id){return document.getElementById(id)}
 function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
 function escapeHtml(s){return String(s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
@@ -864,7 +828,7 @@ if(h.length){$('statBest').textContent=Math.max.apply(null,h.map(function(x){ret
 var lb=$('lbList');
 if(!h.length){lb.innerHTML='<span style="color:var(--mut)">لا توجد محاولات بعد. كن الأول!</span>';return}
 var sorted=h.slice().sort(function(a,b){return b.score-a.score}).slice(0,5);
-lb.innerHTML=sorted.map(function(r,i){return'<div class="lb-row"><span><span class="rank">#'+(i+1)+'</span>'+escapeHtml(r.name)+'</span><span><b style="color:var(--pri2)">'+r.score+'/'+BANK.length+'</b></span></div>'}).join('');
+lb.innerHTML=sorted.map(function(r,i){return'<div class="lb-row"><span><span class="rank">#'+(i+1)+'</span>'+escapeHtml(r.name)+'</span><span><b style="color:var(--pri3)">'+r.score+'/'+BANK.length+'</b></span></div>'}).join('');
 }
 function saveAttempt(r){var h=getHistory();h.push(r);localStorage.setItem('we_history',JSON.stringify(h.slice(-20)));refreshDashboard()}
 
@@ -872,16 +836,14 @@ function startQuiz(isP){
 practice=isP;
 quizOrder=shuffle(BANK);
 quizOrder.forEach(function(item){
-if(item.type==='mcq'){
 var correctText=item.opts[item.correct];
 var shuffled=shuffle(item.opts);
 item.opts=shuffled;
 item.correct=shuffled.indexOf(correctText);
-}
 });
 curIdx=0;
 answers=quizOrder.map(function(item){return{qid:item.id,val:null,skipped:false}});
-timeLeft=1200;quizStart=Date.now();
+timeLeft=TIME_LIMIT;quizStart=Date.now();
 $('quizName').textContent=$('studentName').value.trim()||'طالب';
 $('modeTag').textContent=practice?'(وضع التدريب)':'';
 showView('quizView');
@@ -891,9 +853,11 @@ startTimer();
 
 function startTimer(){
 clearInterval(timerId);
+var m=Math.floor(timeLeft/60),s=timeLeft%60;
+$('timerText').textContent=(m<10?'0':'')+m+':'+(s<10?'0':'')+s;
 timerId=setInterval(function(){
 timeLeft--;
-if(timeLeft<0){timeLeft=0}
+if(timeLeft<0)timeLeft=0;
 var m=Math.floor(timeLeft/60),s=timeLeft%60;
 $('timerText').textContent=(m<10?'0':'')+m+':'+(s<10?'0':'')+s;
 $('timerBox').classList.toggle('warn',timeLeft<120);
@@ -905,34 +869,20 @@ function renderQuestion(){
 var q=quizOrder[curIdx];
 var a=answers[curIdx];
 var box=$('questionBox');
-var typeLabel=q.type==='mcq'?'اختيار من متعدد':q.type==='tf'?'صح أم خطأ':'إجابة قصيرة';
+var typeLabel=q.opts.length===2&&q.opts[0]==='True'?'صح أم خطأ':'اختيار من متعدد';
 var html='<div class="q-type">'+typeLabel+'</div>';
 html+='<div class="q-text">'+escapeHtml(q.q)+'</div>';
-if(q.type==='mcq'){
 html+='<div class="options">';
 q.opts.forEach(function(opt,i){
 var sel=(a.val===i)?'selected':'';
-html+='<label class="opt '+sel+'"><input type="radio" name="opt" value="'+i+'" '+(a.val===i?'checked':'')+'><span class="ltr">'+String.fromCharCode(65+i)+'.</span><span>'+escapeHtml(opt)+'</span></label>';
+var letter=(q.opts.length===2)?'':String.fromCharCode(65+i)+'. ';
+html+='<label class="opt '+sel+'"><input type="radio" name="opt" value="'+i+'" '+(a.val===i?'checked':'')+'><span class="ltr">'+letter+'</span><span>'+escapeHtml(opt)+'</span></label>';
 });
 html+='</div>';
-}
-else if(q.type==='tf'){
-html+='<div class="options">';
-[['True',true],['False',false]].forEach(function(pair){
-var sel=(a.val===pair[1])?'selected':'';
-html+='<label class="opt '+sel+'"><input type="radio" name="opt" value="'+pair[1]+'" '+(a.val===pair[1]?'checked':'')+'><span>'+pair[0]+'</span></label>';
-});
-html+='</div>';
-}
-else{
-html+='<textarea class="answer" id="shortAns" placeholder="Type your answer here...">'+(a.val?escapeHtml(a.val):'')+'</textarea>';
-}
 box.innerHTML=html;
 box.querySelectorAll('input[type="radio"]').forEach(function(inp){
 inp.addEventListener('change',function(){
-var v=this.value;
-if(q.type==='tf')v=(v==='true');
-else v=parseInt(v,10);
+var v=parseInt(this.value,10);
 answers[curIdx].val=v;
 answers[curIdx].skipped=false;
 box.querySelectorAll('.opt').forEach(function(o){o.classList.remove('selected')});
@@ -940,8 +890,6 @@ this.closest('.opt').classList.add('selected');
 updateMeta();
 });
 });
-var ta=box.querySelector('#shortAns');
-if(ta){ta.addEventListener('input',function(){answers[curIdx].val=this.value;answers[curIdx].skipped=false;updateMeta();});}
 updateMeta();
 }
 
@@ -957,7 +905,7 @@ function prevQ(){if(curIdx>0){curIdx--;renderQuestion()}}
 function nextQ(){if(curIdx<quizOrder.length-1){curIdx++;renderQuestion()}}
 function skipQ(){
 answers[curIdx].skipped=true;
-if(answers[curIdx].val===null||answers[curIdx].val==='')answers[curIdx].val=null;
+answers[curIdx].val=null;
 if(curIdx<quizOrder.length-1){curIdx++;renderQuestion()}
 else{updateMeta()}
 }
@@ -974,19 +922,9 @@ if(ua.skipped||ua.val===null||ua.val===''){
 unanswered++;
 userDisplay='(تم التخطي / بدون إجابة)';
 }
-else if(q.type==='short'){
-var u=String(ua.val).toLowerCase().trim();
-var c=q.correct.toLowerCase();
-var keywords=c.split(/\s+/).filter(function(w){return w.length>3});
-var hits=keywords.filter(function(k){return u.indexOf(k)!==-1}).length;
-isCorrect=hits>=Math.max(2,Math.floor(keywords.length*0.4));
-userDisplay=ua.val;
-if(isCorrect)correct++;else incorrect++;
-}
 else{
 if(ua.val===q.correct){isCorrect=true;correct++}else{incorrect++}
-if(q.type==='mcq')userDisplay=String.fromCharCode(65+ua.val)+'. '+q.opts[ua.val];
-else userDisplay=ua.val?'True':'False';
+userDisplay=String.fromCharCode(65+ua.val)+'. '+q.opts[ua.val];
 }
 details.push({q:q,user:userDisplay,isCorrect:isCorrect,skipped:ua.skipped||ua.val===null||ua.val===''});
 });
@@ -1021,18 +959,8 @@ var cls=d.skipped?'':(d.isCorrect?'correct':'incorrect');
 var tag=d.skipped?'<span class="tag sk">تم التخطي</span>':(d.isCorrect?'<span class="tag ok">صحيح</span>':'<span class="tag no">خطأ</span>');
 var html='<div class="rev-item '+cls+'">';
 html+='<div class="q-head">س'+(i+1)+': '+escapeHtml(d.q.q)+tag+'</div>';
-if(d.q.type==='mcq'){
 html+='<p class="ans-user"><b>إجابتك:</b> '+escapeHtml(String(d.user))+'</p>';
 html+='<p class="ans-expected"><b>الإجابة الصحيحة:</b> '+String.fromCharCode(65+d.q.correct)+'. '+escapeHtml(d.q.opts[d.q.correct])+'</p>';
-}
-else if(d.q.type==='tf'){
-html+='<p class="ans-user"><b>إجابتك:</b> '+escapeHtml(String(d.user))+'</p>';
-html+='<p class="ans-expected"><b>الإجابة الصحيحة:</b> '+(d.q.correct?'True':'False')+'</p>';
-}
-else{
-html+='<p class="ans-user"><b>إجابتك:</b> '+escapeHtml(String(d.user))+'</p>';
-html+='<p class="ans-expected"><b>الإجابة المتوقعة:</b> '+escapeHtml(d.q.correct)+'</p>';
-}
 html+='<p><b>التفسير:</b> '+escapeHtml(d.q.exp)+'</p>';
 html+='</div>';
 return html;
@@ -1051,56 +979,43 @@ localStorage.setItem('we_sound',soundOn?'on':'off');
 $('soundBtn').textContent=soundOn?'🔊':'🔇';
 }
 
-/* === BUILD QR CODE (offline) === */
-function buildQR(){
-var box=$('qrcode');
-var notice=$('qrNotice');
-box.innerHTML='';
-notice.className='qr-notice';
-notice.innerHTML='';
-
-var url;
-try{url=window.location.href.split('#')[0]}catch(e){url=''}
-
-var isLocal = !url || url.indexOf('file://')===0 || url.indexOf('localhost')!==-1 || url.indexOf('127.0.0.1')!==-1;
-
-// If local: QR encodes a placeholder so at least the QR area looks correct, and we display clear instructions.
-var qrTarget = isLocal ? 'https://example.com/we-quiz' : url;
-
-try{
-var canvas=QR.render(qrTarget,220,'#5b21b6','#ffffff');
-// Dim the placeholder QR so it's visually clear it isn't the real one
-if(isLocal) canvas.style.opacity='0.25';
-box.appendChild(canvas);
-}catch(err){
-box.innerHTML='<p style="color:#ef4444;font-size:.85rem">تعذّر توليد رمز QR</p>';
+function loadRealBG(){
+var img=new Image();
+img.onload=function(){ $('bgPhoto').classList.add('loaded'); };
+img.onerror=function(){};
+img.src='we-bg.jpg';
 }
 
+function buildQR(){
+var box=$('qrcode');var notice=$('qrNotice');
+box.innerHTML='';notice.className='qr-notice';notice.innerHTML='';
+var url;try{url=window.location.href.split('#')[0]}catch(e){url=''}
+var isLocal=!url||url.indexOf('file://')===0||url.indexOf('localhost')!==-1||url.indexOf('127.0.0.1')!==-1;
+var qrTarget=isLocal?'https://example.com/we-quiz':url;
+try{
+var canvas=QR.render(qrTarget,220,'#5B21B6','#ffffff');
+if(isLocal)canvas.style.opacity='0.25';
+box.appendChild(canvas);
+}catch(err){box.innerHTML='<p style="color:#ef4444;font-size:.85rem">تعذّر توليد QR</p>';}
 if(isLocal){
 notice.innerHTML=
 '<b>⚠️ لماذا لا يعمل الرمز من هاتف آخر؟</b><br>'+
-'أنت تفتح الملف مباشرة من جهازك (<code>file://</code>). لا يمكن لأي هاتف آخر الوصول إلى ملفات جهازك. '+
-'لتصبح المسح ممكن، يجب رفع الصفحة على الإنترنت (استضافة مجانية). بعد الرفع، سيتولّد الرمز تلقائياً بعنوان حقيقي.<br><br>'+
+'أنت تفتح الملف مباشرة من جهازك (<code>file://</code>). لا يمكن لأي هاتف الوصول لملفات جهازك.<br><br>'+
 '<b>خطوات النشر السريع (مجاناً):</b>'+
-'<ol>'+
-'<li>افتح <code>pages.github.com</code> وأنشئ حساباً.</li>'+
+'<ol><li>افتح <code>pages.github.com</code> وأنشئ حساباً.</li>'+
 '<li>أنشئ مستودعاً جديداً باسم <code>we-quiz</code>.</li>'+
 '<li>ارفع ملف <code>quiz.html</code> (أعد تسميته <code>index.html</code>).</li>'+
 '<li>فعّل GitHub Pages من Settings.</li>'+
-'<li>افتح الرابط، وسيظهر رمز QR حقيقي تلقائياً.</li>'+
-'</ol>';
+'<li>افتح الرابط، وسيظهر رمز QR حقيقي.</li></ol>';
 }else{
 notice.className='qr-notice ok';
-notice.innerHTML='<b>✅ الرمز جاهز!</b> امسحه من هاتف آخر لفتح الاختبار مباشرة.';
+notice.innerHTML='<b>✅ الرمز جاهز!</b> امسحه من هاتف آخر لفتح الاختبار.';
 }
 }
 
 function copyLink(){
 var url=window.location.href.split('#')[0];
-if(url.indexOf('file://')===0){
-alert('أنت تفتح الملف محلياً. بعد رفعه على الإنترنت سيصبح الرابط قابلاً للمشاركة.');
-return;
-}
+if(url.indexOf('file://')===0){alert('أنت تفتح الملف محلياً. ارفعه على الإنترنت أولاً.');return}
 if(navigator.clipboard&&navigator.clipboard.writeText){
 navigator.clipboard.writeText(url).then(function(){alert('تم نسخ الرابط!')}).catch(function(){prompt('انسخ الرابط:',url)});
 }else{prompt('انسخ الرابط:',url)}
@@ -1108,11 +1023,8 @@ navigator.clipboard.writeText(url).then(function(){alert('تم نسخ الراب
 function downloadQR(){
 var canvas=document.querySelector('#qrcode canvas');
 if(!canvas){alert('الرمز غير جاهز.');return}
-if(window.location.href.indexOf('file://')===0){
-alert('الرمز الحالي مجرّد معاينة. ارفع الصفحة على الإنترنت ليصبح الرمز حقيقياً.');
-}
 var a=document.createElement('a');
-a.download='we-quiz-qr.png';
+a.download='anas-we-quiz-qr.png';
 a.href=canvas.toDataURL('image/png');
 a.click();
 }
@@ -1123,6 +1035,7 @@ if(localStorage.getItem('we_sound')==='off')soundOn=false;
 $('soundBtn').textContent=soundOn?'🔊':'🔇';
 $('themeBtn').textContent=document.body.classList.contains('light')?'☀️':'🌙';
 refreshDashboard();
+loadRealBG();
 setTimeout(buildQR,100);
 
 $('startBtn').onclick=function(){startQuiz(false)};
@@ -1134,7 +1047,6 @@ $('submitBtn').onclick=submitQuiz;
 $('retryBtn').onclick=function(){showView('homeView');refreshDashboard()};
 $('reviewBtn').onclick=showReview;
 $('backBtn').onclick=function(){showView('resultView')};
-$('openReviewHome').onclick=function(){lastResult?showReview():alert('لا توجد محاولة بعد. ابدأ اختباراً أولاً!')};
 $('themeBtn').onclick=toggleTheme;
 $('soundBtn').onclick=toggleSound;
 $('copyLink').onclick=copyLink;
