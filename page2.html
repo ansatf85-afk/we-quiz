@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Crispy Menu - اطلب الآن</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body { background-color: #f8f9fa; color: #333; text-align: right; padding-bottom: 100px; }
+    
+    /* شاشة الترحيب */
+    .welcome-screen { display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; background: #fff; }
+    .logo-box { width: 100px; height: 100px; background: #ff6b6b; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 40px; margin-bottom: 20px; color: #fff; }
+    .welcome-title { font-size: 28px; font-weight: bold; margin-bottom: 10px; color: #333; }
+    .welcome-sub { font-size: 14px; color: #888; margin-bottom: 30px; }
+    .btn-choice { width: 100%; max-width: 320px; padding: 15px; margin: 8px 0; border: none; border-radius: 15px; font-size: 16px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: 0.3s; text-decoration: none; }
+    .btn-choice:active { transform: scale(0.96); }
+    .btn-facebook { background-color: #1877f2; color: #fff; }
+    .btn-menu { background-color: #ff6b6b; color: #fff; }
+
+    /* واجهة المنيو */
+    #menu-section { display: none; padding: 15px; }
+    .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+    .header-icon { width: 40px; height: 40px; background: #fff; border-radius: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); color: #555; cursor: pointer; }
+    .header-title { font-size: 20px; font-weight: bold; color: #333; }
+    
+    /* التصنيفات */
+    .categories-scroll { display: flex; gap: 15px; overflow-x: auto; padding-bottom: 15px; margin-bottom: 15px; }
+    .categories-scroll::-webkit-scrollbar { display: none; }
+    .cat-item { display: flex; flex-direction: column; align-items: center; gap: 5px; cursor: pointer; min-width: 70px; }
+    .cat-img { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 2px solid transparent; transition: 0.3s; }
+    .cat-item.active .cat-img { border-color: #ff6b6b; }
+    .cat-name { font-size: 12px; color: #666; font-weight: bold; }
+    .cat-item.active .cat-name { color: #ff6b6b; }
+
+    /* بانر */
+    .discount-banner { background: #2c3e50; border-radius: 15px; padding: 20px; color: #fff; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+    .discount-banner h2 { font-size: 18px; }
+    .discount-banner span { font-size: 24px; font-weight: bold; color: #ff6b6b; }
+
+    /* الأصناف */
+    .section-title { font-size: 18px; font-weight: bold; margin-bottom: 15px; color: #333; }
+    .items-list { display: flex; flex-direction: column; gap: 15px; }
+    .item-card { background: #fff; border-radius: 15px; padding: 15px; display: flex; gap: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); position: relative; cursor: pointer; transition: 0.2s; }
+    .item-card:active { transform: scale(0.98); }
+    .item-img { width: 90px; height: 90px; border-radius: 12px; object-fit: cover; }
+    .item-info { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+    .item-info h4 { font-size: 16px; margin-bottom: 5px; color: #333; }
+    .item-info p { font-size: 12px; color: #888; margin-bottom: 8px; line-height: 1.4; }
+    .item-price { font-weight: bold; color: #ff6b6b; font-size: 16px; }
+    .add-icon { position: absolute; bottom: 0; left: 0; background: #ff6b6b; color: #fff; width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; border-radius: 15px 0 15px 0; font-size: 18px; }
+
+    /* تفاصيل الصنف */
+    #detail-section { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; z-index: 2000; overflow-y: auto; padding-bottom: 80px; }
+    .detail-header { position: relative; height: 250px; }
+    .detail-img { width: 100%; height: 100%; object-fit: cover; }
+    .back-btn-detail { position: absolute; top: 20px; right: 20px; background: #fff; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); cursor: pointer; color: #333; }
+    .detail-content { padding: 20px; margin-top: -20px; background: #fff; border-radius: 25px 25px 0 0; position: relative; }
+    .detail-title { font-size: 22px; font-weight: bold; margin-bottom: 5px; }
+    .detail-price { color: #ff6b6b; font-size: 18px; font-weight: bold; margin-bottom: 15px; }
+    .detail-meta { display: flex; gap: 15px; margin-bottom: 15px; font-size: 12px; color: #666; }
+    .detail-desc { font-size: 14px; color: #777; line-height: 1.6; margin-bottom: 20px; }
+    .extra-title { font-size: 16px; font-weight: bold; margin-bottom: 10px; }
+    .extra-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #eee; }
+    .extra-item label { display: flex; align-items: center; gap: 10px; font-size: 14px; cursor: pointer; }
+    .extra-item input[type="checkbox"] { width: 18px; height: 18px; accent-color: #ff6b6b; }
+    .extra-price { color: #ff6b6b; font-weight: bold; font-size: 14px; }
+    .note-input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 10px; margin-top: 10px; font-family: inherit; resize: none; }
+
+    /* زر الإضافة للسلة */
+    .add-to-cart-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: #ff6b6b; color: #fff; padding: 18px; display: flex; justify-content: space-between; align-items: center; font-weight: bold; font-size: 16px; cursor: pointer; z-index: 3000; }
+    .add-to-cart-bar:active { background: #e55a5a; }
+
+    /* شريط السلة العائم */
+    .floating-cart { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #2c3e50; color: #fff; padding: 12px 25px; border-radius: 30px; display: none; align-items: center; gap: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); cursor: pointer; z-index: 1500; }
+    .floating-cart span { font-weight: bold; font-size: 14px; }
+
+    /* ====== زر الطلب الطارئ (الرادار) ====== */
+    .emergency-order-btn {
+      position: fixed;
+      bottom: 90px;
+      left: 20px;
+      width: 70px;
+      height: 70px;
+      background: #e74c3c;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 10px;
+      font-weight: bold;
+      box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7);
+      cursor: pointer;
+      z-index: 2500;
+      animation: pulse-red 2s infinite;
+      border: 3px solid #fff;
+    }
+    .emergency-order-btn i { font-size: 24px; margin-bottom: 2px; }
+    
+    @keyframes pulse-red {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7); }
+      70% { transform: scale(1); box-shadow: 0 0 0 15px rgba(231, 76, 60, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(231, 76, 60, 0); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- شاشة البداية -->
+  <div id="welcome-screen" class="welcome-screen">
+    <div class="logo-box">🍔</div>
+    <h1 class="welcome-title">CRISPY FOOD</h1>
+    <p class="welcome-sub">أهلاً بك! اختر وجهتك المفضلة</p>
+    <a href="https://www.facebook.com/share/1F87Pf9yuo/?mibextid=wwXIfr" target="_blank" class="btn-choice btn-facebook">
+      <i class="fab fa-facebook-f"></i> صفحة الفيسبوك
+    </a>
+    <button onclick="showMenu()" class="btn-choice btn-menu">
+      <i class="fas fa-utensils"></i> تصفح المنيو
+    </button>
+  </div>
+
+  <!-- واجهة المنيو -->
+  <div id="menu-section">
+    <div class="header">
+      <div class="header-icon" onclick="showMenu()"><i class="fas fa-bars"></i></div>
+      <div class="header-title">Menu</div>
+      <div class="header-icon" onclick="showCart()"><i class="fas fa-shopping-bag"></i></div>
+    </div>
+
+    <div class="categories-scroll" id="categories-container"></div>
+
+    <div class="discount-banner">
+      <div>
+        <h2>خصم 30%</h2>
+        <p style="font-size:12px; color:#aaa;">على جميع البرجر</p>
+      </div>
+      <span>%30</span>
+    </div>
+
+    <h3 class="section-title" id="current-cat-title">برجر</h3>
+    <div class="items-list" id="items-container"></div>
+  </div>
+
+  <!-- تفاصيل الصنف -->
+  <div id="detail-section">
+    <div class="detail-header">
+      <img src="" id="detail-img" class="detail-img" alt="food">
+      <div class="back-btn-detail" onclick="closeDetail()"><i class="fas fa-arrow-right"></i></div>
+    </div>
+    <div class="detail-content">
+      <h2 class="detail-title" id="detail-title">اسم الصنف</h2>
+      <div class="detail-price" id="detail-price">0 ج.م</div>
+      <div class="detail-meta">
+        <span><i class="fas fa-fire"></i> 241 Calories</span>
+        <span><i class="fas fa-clock"></i> 15 Minutes</span>
+      </div>
+      <p class="detail-desc" id="detail-desc">وصف الصنف هنا...</p>
+      <h4 class="extra-title">اختر الإضافات</h4>
+      <div id="extras-container"></div>
+      <h4 class="extra-title" style="margin-top:20px;">إضافة ملاحظات</h4>
+      <textarea class="note-input" rows="3" placeholder="مثال: بدون بصل، صوص إضافي..."></textarea>
+    </div>
+    <div class="add-to-cart-bar" id="add-to-cart-btn" onclick="addToCartFromDetail()">
+      <span>إضافة إلى السلة</span>
+      <span id="detail-total-price">0 ج.م</span>
+    </div>
+  </div>
+
+  <!-- شريط السلة العائم -->
+  <div class="floating-cart" id="floating-cart" onclick="sendOrder()">
+    <i class="fas fa-shopping-cart"></i>
+    <span>السلة (<span id="cart-count">0</span>)</span>
+    <span>|</span>
+    <span>إرسال الطلب: <span id="cart-total">0</span> ج.م</span>
+  </div>
+
+  <!-- زر الطلب الطارئ (الرادار) -->
+  <div class="emergency-order-btn" id="emergency-btn" onclick="emergencyOrder()">
+    <i class="fas fa-phone-alt"></i>
+    <span>اطلب</span>
+  </div>
+
+  <!-- صوت التنبيه (مخفي) -->
+  <audio id="alert-sound" src="https://www.soundjay.com/buttons/sounds/button-09.mp3" preload="auto"></audio>
+
+  <script>
+    // بيانات المنيو
+    const menuData = [
+      {
+        category: "برجر",
+        icon: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=100&h=100&fit=crop",
+        items: [
+          { id: 101, name: "تشيز برجر", price: 65, description: "عيش، صوص، تشيدر، برجر", img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=300&h=300&fit=crop" },
+          { id: 102, name: "دبل تشيز برجر", price: 90, description: "عيش، صوص، تشيدر، 2 برجر", img: "https://images.unsplash.com/photo-1553979459-d2229ba7433b?w=300&h=300&fit=crop" },
+          { id: 103, name: "برجر كلاسيك", price: 75, description: "برجر، خس، خيار مخلل، صوص", img: "https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?w=300&h=300&fit=crop" }
+        ]
+      },
+      {
+        category: "بيتزا",
+        icon: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=100&h=100&fit=crop",
+        items: [
+          { id: 201, name: "بيتزا مارجريتا", price: 80, description: "صلصة طماطم، موزاريلا، ريحان", img: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=300&h=300&fit=crop" },
+          { id: 202, name: "بيتزا خضار", price: 90, description: "فلفل، زيتون، مشروم، ذرة", img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=300&h=300&fit=crop" }
+        ]
+      },
+      {
+        category: "كريب",
+        icon: "https://images.unsplash.com/photo-1519676867240-f03562e64548?w=100&h=100&fit=crop",
+        items: [
+          { id: 301, name: "كريب زنجر", price: 110, description: "دجاج زنجر حار، صوص", img: "https://images.unsplash.com/photo-1519676867240-f03562e64548?w=300&h=300&fit=crop" },
+          { id: 302, name: "كريب مكس لحوم", price: 120, description: "سجق، كفتة، بسطرمة، جبن", img: "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=300&h=300&fit=crop" }
+        ]
+      }
+    ];
+
+    let cart = [];
+    let currentItem = null;
+    let currentCategory = menuData[0];
+
+    function showMenu() {
+      document.getElementById('welcome-screen').style.display = 'none';
+      document.getElementById('menu-section').style.display = 'block';
+      document.getElementById('detail-section').style.display = 'none';
+      renderCategories();
+      renderItems(currentCategory);
+    }
+
+    function renderCategories() {
+      const container = document.getElementById('categories-container');
+      container.innerHTML = '';
+      menuData.forEach((cat, index) => {
+        const isActive = index === 0 ? 'active' : '';
+        container.innerHTML += `
+          <div class="cat-item ${isActive}" onclick="selectCategory(${index})">
+            <img src="${cat.icon}" class="cat-img" alt="${cat.category}">
+            <span class="cat-name">${cat.category}</span>
+          </div>
+        `;
+      });
+    }
+
+    function selectCategory(index) {
+      currentCategory = menuData[index];
+      document.querySelectorAll('.cat-item').forEach((el, i) => {
+        if(i === index) el.classList.add('active');
+        else el.classList.remove('active');
+      });
+      document.getElementById('current-cat-title').innerText = currentCategory.category;
+      renderItems(currentCategory);
+    }
+
+    function renderItems(category) {
+      const container = document.getElementById('items-container');
+      container.innerHTML = '';
+      category.items.forEach(item => {
+        container.innerHTML += `
+          <div class="item-card" onclick="openDetail(${item.id})">
+            <img src="${item.img}" class="item-img" alt="${item.name}">
+            <div class="item-info">
+              <h4>${item.name}</h4>
+              <p>${item.description}</p>
+              <div class="item-price">${item.price} ج.م</div>
+            </div>
+            <div class="add-icon"><i class="fas fa-plus"></i></div>
+          </div>
+        `;
+      });
+    }
+
+    function openDetail(itemId) {
+      let foundItem = null;
+      menuData.forEach(cat => {
+        const item = cat.items.find(i => i.id === itemId);
+        if(item) foundItem = item;
+      });
+      if(!foundItem) return;
+      currentItem = foundItem;
+      document.getElementById('detail-img').src = foundItem.img;
+      document.getElementById('detail-title').innerText = foundItem.name;
+      document.getElementById('detail-price').innerText = foundItem.price + ' ج.م';
+      document.getElementById('detail-desc').innerText = foundItem.description;
+      document.getElementById('detail-total-price').innerText = foundItem.price + ' ج.م';
+      
+      const extrasContainer = document.getElementById('extras-container');
+      extrasContainer.innerHTML = `
+        <div class="extra-item">
+          <label><input type="checkbox" onchange="updateDetailTotal()"> جبنة إضافية</label>
+          <span class="extra-price">+5 ج.م</span>
+        </div>
+        <div class="extra-item">
+          <label><input type="checkbox" onchange="updateDetailTotal()"> صوص حار</label>
+          <span class="extra-price">+3 ج.م</span>
+        </div>
+      `;
+      document.getElementById('menu-section').style.display = 'none';
+      document.getElementById('detail-section').style.display = 'block';
+      window.scrollTo(0,0);
+    }
+
+    function closeDetail() {
+      document.getElementById('detail-section').style.display = 'none';
+      document.getElementById('menu-section').style.display = 'block';
+    }
+
+    function updateDetailTotal() {
+      if(!currentItem) return;
+      let total = currentItem.price;
+      const checkboxes = document.querySelectorAll('#extras-container input[type="checkbox"]:checked');
+      checkboxes.forEach(cb => {
+        const priceText = cb.parentElement.nextElementSibling.innerText;
+        const price = parseInt(priceText.replace(/[^0-9]/g, ''));
+        total += price;
+      });
+      document.getElementById('detail-total-price').innerText = total + ' ج.م';
+    }
+
+    function addToCartFromDetail() {
+      if(!currentItem) return;
+      let total = currentItem.price;
+      let extras = [];
+      const checkboxes = document.querySelectorAll('#extras-container input[type="checkbox"]:checked');
+      checkboxes.forEach(cb => {
+        extras.push(cb.parentElement.innerText.trim());
+      });
+      cart.push({ name: currentItem.name, price: total, extras: extras });
+      updateCartBar();
+      closeDetail();
+      alert('تمت الإضافة إلى السلة!');
+    }
+
+    function updateCartBar() {
+      const floatingCart = document.getElementById('floating-cart');
+      if (cart.length > 0) {
+        floatingCart.style.display = 'flex';
+        document.getElementById('cart-count').innerText = cart.length;
+        const total = cart.reduce((sum, item) => sum + item.price, 0);
+        document.getElementById('cart-total').innerText = total;
+      } else {
+        floatingCart.style.display = 'none';
+      }
+    }
+
+    function sendOrder() {
+      if (cart.length === 0) return;
+      let phone = "201222495191"; 
+      let text = "طلب جديد من المنيو الإلكتروني 🛒:\n\n";
+      let total = 0;
+      cart.forEach((item, index) => {
+        text += `${index + 1}. ${item.name}`;
+        if(item.extras.length > 0) text += ` (${item.extras.join(', ')})`;
+        text += ` - ${item.price} ج.م\n`;
+        total += item.price;
+      });
+      text += `\nإجمالي الحساب: ${total} ج.م`;
+      window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`, '_blank');
+    }
+
+    function showCart() {
+      if(cart.length === 0) { alert('السلة فارغة'); return; }
+      sendOrder();
+    }
+
+    // ====== دالة الطلب الطارئ (الرادار) ======
+    function emergencyOrder() {
+      // 1. تشغيل الصوت
+      const audio = document.getElementById('alert-sound');
+      audio.volume = 1.0;
+      audio.play().catch(e => console.log("الصوت محتاج تفاعل من المستخدم"));
+
+      // 2. الاهتزاز القوي (إذا كان الجهاز يدعم)
+      if (navigator.vibrate) {
+        navigator.vibrate([500, 200, 500, 200, 500]);
+      }
+
+      // 3. فتح تطبيق الاتصال بالرقم
+      // ملاحظة: المتصفح سيفتح شاشة الاتصال ويظهر الرقم، والمستخدم يضغط "اتصال"
+      window.location.href = "tel:01222495191";
+
+      // 4. تنبيه نصي
+      setTimeout(() => {
+        alert("جاري الاتصال بالمطعم...");
+      }, 500);
+    }
+  </script>
+</body>
+</html>
